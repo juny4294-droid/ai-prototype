@@ -78,7 +78,7 @@
 
 ## Reproduction Baseline
 
-現状画面を画像なしでも再現できるよう、以下を固定する。
+外部の image 参照なしで header を再現できるよう、以下を固定する。
 
 ### Background
 

@@ -10,13 +10,13 @@ const detailSections = [
     label: "項目",
     icon: "folder",
     caption: "",
+    separatorAfter: true,
   },
   {
-    id: "comments",
-    label: "コメント",
-    icon: "comment",
+    id: "review",
+    label: "契約審査",
+    icon: "fact_check",
     caption: "",
-    indicator: { type: "dot" },
   },
   {
     id: "tasks",
@@ -24,6 +24,33 @@ const detailSections = [
     icon: "task_alt",
     caption: "",
     indicator: { type: "count", value: 99 },
+  },
+  {
+    id: "comments",
+    label: "コメント",
+    icon: "comment",
+    caption: "",
+    indicator: { type: "dot" },
+    separatorAfter: true,
+  },
+  {
+    id: "approval",
+    label: "承認",
+    icon: "how_to_reg",
+    caption: "",
+  },
+  {
+    id: "conclusion",
+    label: "締結",
+    icon: "adjust",
+    caption: "",
+    separatorAfter: true,
+  },
+  {
+    id: "rooms",
+    label: "編集ルーム",
+    icon: "groups",
+    caption: "",
   },
   {
     id: "related",
@@ -37,30 +64,6 @@ const detailSections = [
     icon: "attach_file",
     caption: "",
     indicator: { type: "dot" },
-  },
-  {
-    id: "rooms",
-    label: "編集ルーム",
-    icon: "groups",
-    caption: "",
-  },
-  {
-    id: "review",
-    label: "契約審査",
-    icon: "fact_check",
-    caption: "",
-  },
-  {
-    id: "approval",
-    label: "承認",
-    icon: "how_to_reg",
-    caption: "",
-  },
-  {
-    id: "conclusion",
-    label: "締結",
-    icon: "adjust",
-    caption: "",
   },
   {
     id: "log",
@@ -864,7 +867,7 @@ function renderSectionRail() {
       (section) => `
         <button
           type="button"
-          class="rail-button${section.id === state.selectedSection ? " is-active" : ""}"
+          class="rail-button${section.id === state.selectedSection ? " is-active" : ""}${section.separatorAfter ? " has-group-separator" : ""}"
           data-section="${section.id}"
           aria-pressed="${section.id === state.selectedSection ? "true" : "false"}"
         >
@@ -1113,39 +1116,68 @@ function renderTermsPanel() {
 function renderCommentsPanel() {
   const comments = commentsByScope[state.commentScope];
   return `
-    <div class="panel-block">
-      <div class="scope-tabs-underline is-compact">
-        <button
-          type="button"
-          class="scope-tab-underline${state.commentScope === "public" ? " is-active" : ""}"
-          data-comment-scope="public"
-        >
-          公開
-        </button>
-        <button
-          type="button"
-          class="scope-tab-underline${state.commentScope === "private" ? " is-active" : ""}"
-          data-comment-scope="private"
-        >
-          限定公開
-        </button>
-      </div>
+    <div class="scope-tabs-underline is-comment-scope">
+      <button
+        type="button"
+        class="scope-tab-underline${state.commentScope === "public" ? " is-active" : ""}"
+        data-comment-scope="public"
+      >
+        公開
+      </button>
+      <button
+        type="button"
+        class="scope-tab-underline${state.commentScope === "private" ? " is-active" : ""}"
+        data-comment-scope="private"
+      >
+        限定公開
+      </button>
     </div>
-    <div class="panel-block">
-      <div class="thread-comment-list">
-        ${comments.map((comment) => renderThreadCommentItem(comment)).join("")}
+    <div class="comment-composer-card">
+      <div class="comment-composer-main">
+        <label class="comment-composer-label" for="commentComposerInput">
+          コメント（@メンションで相手に通知）
+        </label>
+        <textarea
+          id="commentComposerInput"
+          class="comment-composer-input"
+          rows="4"
+          placeholder=""
+        ></textarea>
       </div>
-    </div>
-    <div class="panel-block">
-      <label class="field">
-        <span class="field-label">コメント</span>
-        <textarea class="field-control textarea" rows="4" placeholder="コメントを入力してください"></textarea>
-      </label>
-      <div class="inline-actions">
-        <button type="button" class="button button-primary" data-demo-toast="コメント投稿はモックです。">
+      <div class="comment-composer-footer">
+        <div class="comment-composer-tools">
+          <button
+            type="button"
+            class="composer-icon-button"
+            aria-label="添付ファイルを追加"
+            data-demo-toast="添付はモックです。"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">attach_file</span>
+          </button>
+          <button
+            type="button"
+            class="composer-icon-button"
+            aria-label="メンションを追加"
+            data-demo-toast="メンションはモックです。"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">alternate_email</span>
+          </button>
+        </div>
+        <button type="button" class="button button-primary button-large" data-demo-toast="コメント投稿はモックです。">
           送信
         </button>
       </div>
+    </div>
+    <div class="comment-card-list">
+      ${comments
+        .map(
+          (comment) => `
+            <article class="comment-card comment-entry-card">
+              ${renderThreadCommentItem(comment)}
+            </article>
+          `,
+        )
+        .join("")}
     </div>
   `;
 }

@@ -115,10 +115,12 @@
 ### Contract Detail Person Row
 
 - 契約書詳細の `担当者`、`フォロー中のメンバー`、類似の人物 row に使う
-- avatar size は `40px` を基本とする
-- glyph / initials は `20–22px` 帯に収める
+- avatar size は `36px` を基本とする
+- glyph / initials は `18–20px` 帯に収める
 - 名前より avatar が目立たない密度を保つ
 - name は `14px / 700`、meta は `12px / line-height 1.6` を基本とする
+- avatar と text の横 gap は `12px` を基本とする
+- row の cross-axis は中央揃えとし、avatar の面積で行高を押し広げない
 - `comments / timeline` 用の `md: 32px` をそのまま拡大流用しない
 - 48px 以上の大きい avatar を summary row に置かない
 

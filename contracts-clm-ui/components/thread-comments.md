@@ -147,6 +147,8 @@ Actions
 ### 基本
 
 - 背景: transparent
+- 契約書詳細の right panel variant では、投稿済みコメントを card 内に収めて表示してよい
+- contract detail variant の comment card は強い shadow ではなく、`1px border + subtle separation` を基本とする
 
 ---
 
@@ -228,6 +230,8 @@ Actions
 ### 配置
 
 - スレッド末尾 or 各コメント下
+- 契約書詳細の comment tab では textarea を panel 内に常時表示する
+- `入力開始時に展開する composer` は contract detail の基本形にしない
 
 ---
 
@@ -235,12 +239,22 @@ Actions
 
 - Textarea
 - Submitボタン
+- 必要に応じて添付導線、メンション補助を textarea 近傍へ置いてよい
 
 ---
 
 ### 挙動
 
 - Ctrl / Cmd + Enterで送信
+
+---
+
+## Contract Detail Variant
+
+- 投稿済みコメントは list の素の羅列ではなく、comment card の縦積みとして見せる
+- comment card は `avatar / author / timestamp / body / attachment` を 1 block にまとめる
+- input area は card list の上または下に独立 block として置けるが、基本形は `入力欄が先 / 投稿済みコメントが後` とする
+- comment が 0 件でも textarea と投稿 action は表示したままにする
 
 ---
 

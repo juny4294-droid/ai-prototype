@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ContractS CLM Sample | チーム一覧管理</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=alternate_email,badge,check_circle,close,domain,edit,filter_alt,groups,help,notifications,person,rule,search,tune&display=block"
+    >
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="global-header">
+        <div class="header-left">
+          <div class="brand-area">
+            <button type="button" class="logo-button" aria-label="ホームへ移動">
+              <span class="material-symbols-rounded nav-icon" aria-hidden="true">domain</span>
+            </button>
+            <button type="button" class="company-button" aria-label="所属会社を切り替える">
+              <span class="company-label">【社内】ContractS株式会社</span>
+              <span class="company-caret" aria-hidden="true">▼</span>
+            </button>
+          </div>
+          <span class="header-divider" aria-hidden="true"></span>
+          <nav class="global-nav" aria-label="グローバルナビゲーション">
+            <a href="#" class="nav-item">ホーム</a>
+            <a href="#" class="nav-item">契約管理</a>
+            <a href="#" class="nav-item is-active" aria-current="page">管理設定</a>
+          </nav>
+        </div>
+        <div class="utility-nav" aria-label="補助操作">
+          <button type="button" class="utility-button" aria-label="ヘルプ">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">help</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="検索">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">search</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="アカウント窓口">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">alternate_email</span>
+          </button>
+          <button type="button" class="utility-button is-notification" aria-label="通知 2 件">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">notifications</span>
+            <span class="notification-dot" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="avatar-button" aria-label="ユーザーメニューを開く">
+            <span class="material-symbols-rounded nav-icon nav-icon-person" aria-hidden="true">person</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="management-layout" aria-label="チーム管理レイアウト">
+          <aside class="filter-panel" aria-labelledby="filterHeading">
+            <div class="panel-head">
+              <div>
+                <h2 id="filterHeading">詳細検索</h2>
+              </div>
+            </div>
+
+            <div class="filter-stack">
+              <label class="field">
+                <span class="field-label">チーム検索</span>
+                <span class="field-control field-control-search">
+                  <input
+                    id="teamSearchInput"
+                    name="teamSearch"
+                    type="search"
+                    placeholder="チーム名・部門・承認フロー"
+                    autocomplete="off"
+                  >
+                  <span class="material-symbols-rounded field-suffix-icon" aria-hidden="true">search</span>
+                </span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">ステータス</span>
+                <select id="statusFilter" name="statusFilter">
+                  <option value="all">すべて</option>
+                  <option value="active">有効</option>
+                  <option value="inactive">無効</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">承認フロー</span>
+                <select id="flowFilter" name="flowFilter">
+                  <option value="all">すべて</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">チーム規模</span>
+                <select id="sizeFilter" name="sizeFilter">
+                  <option value="all">すべて</option>
+                  <option value="small">1-9名</option>
+                  <option value="medium">10-29名</option>
+                  <option value="large">30名以上</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">並び順</span>
+                <select id="sortSelect" name="sortSelect">
+                  <option value="name:asc">チーム名 昇順</option>
+                  <option value="members:desc">ユーザー数 降順</option>
+                  <option value="members:asc">ユーザー数 昇順</option>
+                  <option value="status:asc">ステータス順</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="active-filters" id="activeFilters" aria-live="polite"></div>
+
+            <div class="filter-actions">
+              <button type="button" class="button button-light" id="resetButton">条件をリセット</button>
+            </div>
+          </aside>
+
+          <section class="content-column">
+            <section class="page-header">
+              <div>
+                <h1>チーム一覧</h1>
+                <p class="page-description">
+                  チーム名、ユーザー数、承認フロー、有効・無効を一覧で確認できます。
+                </p>
+              </div>
+              <div class="header-actions">
+                <button type="button" class="button button-light">CSV出力</button>
+                <button type="button" class="button button-primary">チームを追加</button>
+              </div>
+            </section>
+
+            <section class="card table-panel" aria-labelledby="tableHeading">
+              <div class="table-toolbar">
+                <p class="panel-note" id="resultSummary">0件表示</p>
+              </div>
+
+              <div class="table-wrap">
+                <table class="teams-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">チーム名</th>
+                      <th scope="col" class="is-right">ユーザー数</th>
+                      <th scope="col">承認フロー</th>
+                      <th scope="col">ステータス</th>
+                    </tr>
+                  </thead>
+                  <tbody id="teamTableBody"></tbody>
+                </table>
+              </div>
+
+              <div class="pagination-bar">
+                <div class="pagination" id="pagination" aria-label="ページネーション"></div>
+                <div class="page-size">
+                  <label for="pageSizeSelect">表示件数</label>
+                  <select id="pageSizeSelect" name="pageSizeSelect">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+          </section>
+        </section>
+      </main>
+
+      <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+      <aside class="detail-drawer" id="detailDrawer" aria-labelledby="memberHeading" aria-hidden="true">
+        <div class="detail-drawer-inner card">
+          <div class="member-panel-header">
+            <div>
+              <h2 id="memberHeading">チーム設定</h2>
+              <p class="member-panel-description" id="selectedTeamDescription">
+                チームを選択すると所属メンバーを確認できます。
+              </p>
+              <p class="drawer-primary-name" id="selectedTeamName">未選択</p>
+            </div>
+            <div class="drawer-header-actions">
+              <button type="button" class="button button-light button-size-sm" id="drawerModeButton">編集</button>
+              <button type="button" class="drawer-close" id="drawerCloseButton" aria-label="詳細サイドバーを閉じる">
+                <span class="material-symbols-rounded" aria-hidden="true">close</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="drawer-preview" id="drawerPreview">
+            <div class="detail-list" id="detailList"></div>
+
+            <div class="drawer-search">
+              <label class="field member-search-field">
+                <span class="field-label">メンバー検索</span>
+                <span class="field-control field-control-search">
+                  <input
+                    id="memberSearchInput"
+                    name="memberSearch"
+                    type="search"
+                    placeholder="氏名・役割・メールアドレス"
+                    autocomplete="off"
+                  >
+                  <span class="material-symbols-rounded field-suffix-icon" aria-hidden="true">search</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="member-list" id="memberList" aria-live="polite"></div>
+          </div>
+
+          <form class="drawer-form" id="drawerForm">
+            <label class="field">
+              <span class="field-label">チーム名</span>
+              <span class="field-control">
+                <input id="editTeamName" name="teamName" type="text" autocomplete="off">
+              </span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">部門</span>
+              <span class="field-control">
+                <input id="editDepartment" name="department" type="text" autocomplete="off">
+              </span>
+            </label>
+
+            <label class="field">
+              <span class="field-label">承認フロー</span>
+              <select id="editApprovalFlow" name="approvalFlow"></select>
+            </label>
+
+            <label class="field">
+              <span class="field-label">ステータス</span>
+              <select id="editStatus" name="status">
+                <option value="active">有効</option>
+                <option value="inactive">無効</option>
+              </select>
+            </label>
+          </form>
+
+          <div class="drawer-footer" id="drawerFooter">
+            <button type="button" class="button button-light" id="cancelEditButton">キャンセル</button>
+            <button type="button" class="button button-primary" id="saveEditButton">保存</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

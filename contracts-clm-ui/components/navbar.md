@@ -1,7 +1,7 @@
 # Navbar
 
 - Status: final
-- Source: provided navbar image + `contracts_clm_image_prototyping_context.md`
+- Source: provided navbar image + `contracts_clm_code_prototyping_context.md`
 
 ---
 

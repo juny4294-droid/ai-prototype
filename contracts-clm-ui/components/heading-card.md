@@ -1,7 +1,7 @@
 # Heading Card
 
 - Status: draft
-- Source: `contracts_clm_image_prototyping_context.md`
+- Source: `contracts_clm_code_prototyping_context.md`
 
 ## Purpose
 

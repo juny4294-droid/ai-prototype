@@ -59,8 +59,8 @@
 - indicator 単体を primary action にしない
 - contract detail の rail では item 全体ではなく icon wrapper を host にする
 - contract detail の rail では label 行の位置補正に badge を使わない
-- contract detail の rail では count badge を `24px / 10px` とし、`icon wrapper 右上 + x: 6px / y: -4px` を基本位置とする
-- contract detail の rail では dot を `12px` とし、`icon wrapper 右上 + x: 5px / y: -1px` を基本位置とする
+- contract detail の rail では count badge を `22px / 10px` とし、`icon wrapper 右上 + x: 5px / y: -3px` を基本位置とする
+- contract detail の rail では dot を `10px` とし、`icon wrapper 右上 + x: 4px / y: 0px` を基本位置とする
 
 ---
 

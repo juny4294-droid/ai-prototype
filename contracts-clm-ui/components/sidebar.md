@@ -199,28 +199,34 @@
 - full detail page の panel 内は accordion / divider / list を基本とする
 - full detail page では rail の左に `resize gutter` を固定で置く
 - rail 幅は content に応じて可変にせず、contract detail fixed width を使う
+- rail は過度に広げず、`90px` の compact 幅を優先する
 
 ### Full Detail Panel Typography
 
-- panel title: `28px / 700 / line-height 1.35`
+- panel title: `30px / 700 / line-height 1.3`
 - panel caption: `13px / 500 / line-height 1.7`
 - panel header link action: `14px / 700`
-- accordion header: `18px / 700`, `min-height: 72px`
+- accordion header: `22px / 700 / line-height 1.4`, `min-height: 80px`
 - field label: `14px / 700`
 - field value: `20px / 400`, 強調値のみ `700`
 - body copy / 長文 value / link-like value: `16px / line-height 1.75`
 - activity actor name: `16px / 700`
 - activity message: `18px / line-height 1.8`
-- rail label は `components/section-rail.md` の `14px / 700 / line-height 1.35` を使う
+- rail label は `components/section-rail.md` の `11px / 700 / line-height 1.3` を使う
+- person row の avatar は `components/avatar.md` の `contract-detail-person-row` variant を使う
 
 ### Full Detail Panel Shell
 
 - panel は白背景 1 面で構成し、header と body の間にだけ 1px divider を置く
 - panel header は `title / caption` を左、optional action を右に置く
-- panel header padding は `24px 24px 18px` を基本とする
-- panel body padding は `20px 24px 32px` を基本とする
+- panel header padding は `28px 32px 24px` を基本とする
+- panel body padding は `24px 32px 36px` を基本とする
 - panel 内の top-level block は 1 column stack とし、block 間は divider と余白で区切る
 - panel 内の複数情報群を 2 column card mosaic にしない
+- panel title は rail との境界から十分に離し、左 inset を accordion header と揃える
+- panel title と最初の accordion header の間は card gap を作らず、header 下 divider を挟んで連続させる
+- accordion header は panel 内の full-width band として扱い、左右 padding は `32px` を基本とする
+- accordion body の最初の情報 block は band 直下で窮屈に見せず、上端に `24px` 前後の breathing space を確保する
 
 ### Existing Component Usage
 
@@ -239,6 +245,7 @@
 - full detail page の `概要` tab は `契約書の概要` accordion を起点にした single column stack を基本とする
 - `契約書のステータス → 説明 → 担当者 → フォロー中のメンバー → 契約書の保存場所 → destructive action` の順を優先する
 - `担当者` と `フォロー中のメンバー` は avatar + name + optional `編集` link を基本とする
+- `担当者` と `フォロー中のメンバー` の avatar は summary row で大きくしすぎず、`36px` を基本とする
 - full detail page の `項目` tab は `契約期間` accordion を起点にした single column field stack を基本とする
 - `項目` tab の header action は `Large Secondary button + text link` を基本とする
 - `項目` tab の field は `契約日 → 開始日 → 終了日 → 契約期間 → 自動更新 → 自動更新の更新拒絶期限 → 更新に関する補足コメント` の順を優先する
@@ -246,7 +253,8 @@
 - related contract card は `document icon + contract id + contract name + tag row` の縦積みで構成する
 - file list は compact card / list
 - log は avatar + actor + timestamp + event message の activity list を基本とする
-- comments は thread comments + input area
+- comments は thread comments + input area を基本とする
+- contract detail の comment tab では textarea を default visible にし、投稿済みコメントは comment card の縦積みで見せる
 
 ---
 

@@ -15,6 +15,7 @@
 - 指示された変更箇所以外は、本 pattern と component rule で定義した fixed shell を維持する
 - full detail page を新しい visual language で再設計しない
 - layout、密度、固定文言、固定順序を勝手に変えない
+- rule の記述を外部参照前提で終わらせず、寸法、順序、余白、文字サイズ、divider 位置を markdown 内に明文化する
 - 右 panel の機能追加があっても、header、viewer、rail などの固定領域は維持する
 - sample / prototype では PDF 本文、契約名、ファイル名、担当者名を実在データ風にせず、常にダミー値で統一する
 
@@ -79,7 +80,7 @@ Related Components:
 - 右側は「icon rail + single panel」の 2 層を基本とし、icon rail を省略しない
 - right section rail は desktop で必須とし、現在の選択 section を切り替える
 - resize gutter は rail と一体化させず、viewer 側の独立レイヤーとして扱う
-- right section rail の幅は `112px` 固定を基本とする
+- right section rail の幅は `90px` の compact 幅を基本とする
 - right detail panel の幅は `380–440px` を基本とする
 - right detail panel は viewport に対して独立スクロールできるようにする
 - main content と right side の間は divider で分離し、広い card gap を作らない
@@ -165,23 +166,28 @@ Related Components:
 
 1. `概要`
 2. `項目`
-3. `コメント`
+3. `契約審査`
 4. `タスク`
-5. `関連契約書`
-6. `ファイル`
-7. `編集ルーム`
-8. `契約審査`
-9. `承認`
-10. `締結`
+5. `コメント`
+6. `承認`
+7. `締結`
+8. `編集ルーム`
+9. `関連契約書`
+10. `ファイル`
 11. `ログ`
 
 Rules:
 - 上記の文言をそのまま使う
 - right rail の 1 列縦積みを固定し、top tab や grid に変えない
+- rail の group separator は `項目` の後、`コメント` の後、`締結` の後へ入れる
 - active 項目のみ淡い背景反転を行う
 - collapse control を置く場合は最下部の utility として扱い、section item と混同させない
 - indicator は rail item 全体ではなく icon wrapper の右上に重ねる
 - count badge と dot indicator は同時表示しない
+- rail は `90px` の compact 幅を基本とし、icon や label の都合で肥大化させない
+- rail label は `11px / 700 / line-height 1.3` を基本とする
+- rail icon は `24px` 帯を基本とし、見出し級の大きさまで拡大しない
+- rail item は `78px` 前後の高さを基本とする
 
 ---
 
@@ -198,15 +204,19 @@ Rules:
 
 - panel 全体は白背景 1 面とし、rail との間は 1px divider で分離する
 - panel header は `title block 左 / action 右` の 1 行を基本とし、header 下に 1px divider を置く
-- panel header padding は `24px 24px 18px` を基本とする
-- panel body padding は `20px 24px 32px` を基本とする
+- panel header padding は `28px 32px 24px` を基本とする
+- panel body padding は `24px 32px 36px` を基本とする
 - panel title は左寄せ固定とし、中央揃えや hero 的な余白を作らない
+- panel title は `概要` のような単語でも小さくしすぎず、section body の label 群より 2 段階強い階層で見せる
+- panel title の左 inset は accordion header の左 inset と揃え、左右で見え方をぶらさない
 - panel caption がある場合は title の直下に 1 行だけ置き、説明文を header に詰め込みすぎない
 - top-level の panel block は 1 column stack とし、block 間は divider と縦余白で分離する
 - top-level block を shadow card で多重に分割しない
 - panel 内の既定本文サイズは `16px / line-height 1.75` を基本とする
 - `field value 20px` は単独値や主値に限り、説明文や長文本文を 20px へ拡大しない
-- member name は `16px / 700`、member role は `12px / line-height 1.6` を基本とする
+- member avatar は `36px` を基本とし、summary row で過度に大きくしない
+- member name は `14px / 700`、member role は `12px / line-height 1.6` を基本とする
+- member row の avatar-text gap は `12px` を基本とする
 - secondary meta や補助説明は `12–14px` 帯に収め、panel title や主値と競合させない
 
 ### Existing Component Mapping
@@ -228,29 +238,33 @@ Rules:
 ### 共通ルール
 
 - 各 tab の detail はこの pattern に定義した構造と typography を優先する
+- 実際の rail 表示順と panel 切り替え順は、下記の個別説明章の並びではなく `Right Section Rail（固定）` の順序を常に優先する
 - tab ごとに generic card layout を流用せず、役割に合った情報構造を使う
 - panel shell、余白、見出し階層、divider の作法は共通化する
 - 各 tab detail で main content の document identity を重複表示しない
-- panel title は `28px / 700 / line-height 1.35` を基本とする
+- panel title は `30px / 700 / line-height 1.3` を基本とする
 - panel header link action は `14px / 700`、button action は `components/button.md` の size/variant を使う
-- accordion header は `18px / 700`, `min-height: 72px` を基本とする
+- accordion header は `22px / 700 / line-height 1.4`, `min-height: 80px` を基本とする
 - field label は `14px / 700`、field value は `20px / 400` を基本とする
 - 長文の本文値、説明文、コメント本文、保存場所 link などは `16px / line-height 1.75` を基本とする
-- rail label は `14px / 700 / line-height 1.35` を基本とし、`12px` へ縮めない
+- rail label は `11px / 700 / line-height 1.3` を基本とする
+- rail icon は `24px`、rail item は `78px` 前後の高さを基本とする
 - activity log の actor name は `16px / 700`、message は `18px / line-height 1.8` を基本とする
+- panel title の下では accordion header を最初の major section として連続配置し、見出しの直後に余計な card gap を作らない
+- accordion header の左右 padding は `32px`、body 側の左右 padding も `32px` を基本として揃える
 
 ### Tab-by-Tab Component Mapping
 
 - `概要`: `components/sidebar.md` の full detail panel shell + `components/avatar.md` + text link + status tag
 - `項目`: `components/sidebar.md` の full detail panel shell + `components/button.md` + text link
-- `コメント`: `components/thread-comments.md` + `components/avatar.md` + `components/file-link.md` + `components/textarea.md` + `components/button.md`
-- `タスク`: `components/button.md` + `components/tag.md` + compact list / detail rows
-- `関連契約書`: `components/document-link.md` + `components/tag.md` + optional `components/button.md`
-- `ファイル`: `components/file-link.md` + optional `components/file-upload.md`
-- `編集ルーム`: `components/avatar.md` + compact list / card
 - `契約審査`: `components/button.md` + `components/dropdown.md` + `components/input-text.md` + `components/textarea.md` + `components/checkbox.md` + `components/datepicker.md` + `components/thread-comments.md`
+- `タスク`: `components/button.md` + `components/tag.md` + compact list / detail rows
+- `コメント`: `components/thread-comments.md` + `components/avatar.md` + `components/file-link.md` + `components/textarea.md` + `components/button.md`
 - `承認`: `components/timeline.md` または step list + `components/badge.md`
 - `締結`: `components/tab.md` + `components/radio.md` + `components/button.md` + `components/file-link.md`
+- `編集ルーム`: `components/avatar.md` + compact list / card
+- `関連契約書`: `components/document-link.md` + `components/tag.md` + optional `components/button.md`
+- `ファイル`: `components/file-link.md` + optional `components/file-upload.md`
 - `ログ`: `components/timeline.md` の contract detail activity list variant + `components/avatar.md` + `components/document-link.md`
 
 ### 1. 概要
@@ -279,6 +293,7 @@ Rules:
 - `終了日`、`自動更新`、`自動更新の更新拒絶期限` は status block に続けて縦積みする
 - `説明`、`担当者`、`フォロー中のメンバー`、`契約書の保存場所` はそれぞれ独立 subsection とし、1px divider で区切る
 - `担当者` と `フォロー中のメンバー` は avatar + name を基本とし、必要に応じて inline の `編集` link を添える
+- `担当者` と `フォロー中のメンバー` の summary avatar は `36px` を基本とし、name より視覚優先度を上げない
 - `契約書の保存場所` は link 的な見せ方を優先し、必要なら folder / building icon を併記してよい
 - destructive action は最下部に十分な余白を取って分離し、通常の情報 section に混ぜない
 - workflow、log、comments、関連契約情報は概要 tab に混ぜない
@@ -340,20 +355,33 @@ Basic structure:
 
 表示内容:
 - `公開 / 限定公開` などの comment scope 切り替え
+- default visible の textarea
+- 投稿 button
 - thread comments
 - 投稿者 avatar
 - timestamp
 - attachment
-- comment input area
+- comment card list
 
 Rules:
 - `components/thread-comments.md` を使う
 - panel 上部に scope 切り替えを置く場合は panel 内の二次 tab として扱い、right rail の active と競合させない
 - ログとコメントを同じ section に入れない
-- 入力欄は thread の末尾に置く
+- textarea は panel 内で default visible とし、初期状態で折りたたまない
+- comment が 0 件でも textarea と投稿 action は表示したままにする
+- 基本形は `入力欄が先 / 投稿済みコメント list が後` とする
 - コメント row は `avatar 左 / author + timestamp 上 / body 下` を基本とする
+- 投稿済みコメントは plain row の連続ではなく、comment card 内に収めて表示する
+- comment card は `avatar / author / timestamp / body / attachment` を 1 block にまとめた縦積みを基本とする
+- comment card 同士は panel 幅に沿って縦積みし、強い shadow ではなく `1px border + subtle separation` で区切る
 - 添付がある場合は本文直下に `components/file-link.md` で分離表示する
 - 公開範囲 tab がある場合も section rail とは別レイヤーとして扱う
+
+Basic structure:
+- `公開 / 限定公開` scope 切り替え
+- default visible textarea
+- `投稿` button
+- comment card list
 
 ### 4. タスク
 
@@ -660,14 +688,14 @@ Contract Detail
    ├─ Section Rail
    │  ├─ 概要
    │  ├─ 項目
-   │  ├─ コメント
-   │  ├─ タスク
-   │  ├─ 関連契約書
-   │  ├─ ファイル
-   │  ├─ 編集ルーム
    │  ├─ 契約審査
+   │  ├─ タスク
+   │  ├─ コメント
    │  ├─ 承認
    │  ├─ 締結
+   │  ├─ 編集ルーム
+   │  ├─ 関連契約書
+   │  ├─ ファイル
    │  └─ ログ
    └─ Single Detail Panel
       └─ Active section detail

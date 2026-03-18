@@ -21,8 +21,8 @@
   --color-warning-pale: #fff2d8;
   --color-dark-surface: #2f3136;
   --color-dark-surface-2: #25272c;
-  --rail-width: 112px;
-  --resize-gutter-width: 12px;
+  --rail-width: 90px;
+  --resize-gutter-width: 10px;
   --detail-panel-width: 408px;
   --radius-control: 4px;
   --radius-panel: 6px;
@@ -655,7 +655,6 @@ a {
   position: relative;
   width: 100%;
   border: 0;
-  border-bottom: 1px solid var(--color-border);
   background: var(--color-white);
   color: #3d4354;
 }
@@ -664,9 +663,9 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  min-height: 92px;
-  padding: 14px 8px;
+  gap: 6px;
+  min-height: 78px;
+  padding: 8px 4px 10px;
   cursor: pointer;
 }
 
@@ -674,23 +673,37 @@ a {
   background: var(--color-primary-pale);
 }
 
+.rail-button.has-group-separator {
+  margin-bottom: 18px;
+}
+
+.rail-button.has-group-separator::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -9px;
+  height: 1px;
+  background: var(--color-border);
+}
+
 .rail-icon-wrap {
   position: relative;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
 }
 
 .rail-icon {
-  font-size: 36px;
+  font-size: 24px;
   line-height: 1;
 }
 
 .rail-button-label {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   text-align: center;
   word-break: keep-all;
 }
@@ -702,28 +715,28 @@ a {
 
 .rail-indicator-dot {
   top: 0;
-  right: -6px;
-  width: 16px;
-  height: 16px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
   background: var(--color-primary-dot);
-  border: 2px solid var(--color-white);
+  border: 1.5px solid var(--color-white);
 }
 
 .rail-indicator-count {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  top: -2px;
-  right: -8px;
-  min-width: 28px;
-  height: 28px;
-  padding: 0 5px;
+  top: -3px;
+  right: -5px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
   border-radius: 999px;
   background: var(--color-danger);
-  border: 2px solid var(--color-white);
+  border: 1.5px solid var(--color-white);
   color: var(--color-white);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -736,7 +749,7 @@ a {
 }
 
 .rail-toggle-button .material-symbols-rounded {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .detail-panel {
@@ -1091,14 +1104,14 @@ a {
 .person-row {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .person-avatar {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   background: #aeb5c6;
   color: var(--color-white);
@@ -1106,7 +1119,7 @@ a {
 }
 
 .person-avatar .material-symbols-rounded {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .person-avatar.is-log {
@@ -1135,7 +1148,10 @@ a {
   font-weight: 700;
 }
 
-.person-name,
+.person-name {
+  font-size: 14px;
+}
+
 .activity-log-name {
   font-size: 16px;
 }
@@ -1177,6 +1193,10 @@ a {
 
 .scope-tabs-underline.is-compact {
   margin-bottom: 0;
+}
+
+.scope-tabs-underline.is-comment-scope {
+  margin-bottom: 24px;
 }
 
 .scope-tab-underline {
@@ -1510,6 +1530,11 @@ a {
   gap: 14px;
 }
 
+.comment-card-list {
+  display: grid;
+  gap: 18px;
+}
+
 .comment-card,
 .task-card,
 .file-card,
@@ -1528,6 +1553,109 @@ a {
 .review-card,
 .relation-card {
   padding: 16px;
+}
+
+.comment-composer-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-white);
+  box-shadow: 0 2px 8px rgba(25, 40, 72, 0.05);
+}
+
+.comment-composer-main {
+  padding: 22px 28px 0;
+}
+
+.comment-composer-label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.comment-composer-input {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 10px;
+  padding: 0 0 18px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+.comment-composer-input:focus {
+  outline: none;
+}
+
+.comment-composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px 12px 24px;
+  background: #eef3fb;
+}
+
+.comment-composer-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.composer-icon-button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.composer-icon-button .material-symbols-rounded {
+  font-size: 22px;
+}
+
+.comment-entry-card {
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(25, 40, 72, 0.05);
+  padding: 20px 22px;
+}
+
+.comment-entry-card .thread-comment-item {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.comment-entry-card .thread-comment-head {
+  gap: 16px;
+}
+
+.comment-entry-card .person-avatar.is-thread {
+  width: 36px;
+  height: 36px;
+  background: #971e46;
+}
+
+.comment-entry-card .person-avatar.is-thread .material-symbols-rounded {
+  font-size: 20px;
+}
+
+.comment-entry-card .thread-comment-author {
+  font-size: 14px;
+}
+
+.comment-entry-card .thread-comment-body {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.8;
 }
 
 .comment-head {
@@ -2208,6 +2336,8 @@ a {
 .button:focus-visible,
 .viewer-tab:focus-visible,
 .viewer-icon-button:focus-visible,
+.composer-icon-button:focus-visible,
+.comment-composer-input:focus-visible,
 .rail-resize-gutter:focus-visible,
 .rail-button:focus-visible,
 .rail-toggle-button:focus-visible,
@@ -2256,6 +2386,7 @@ a {
 @media (max-width: 720px) {
   .global-header,
   .detail-panel-header,
+  .comment-composer-footer,
   .modal-header,
   .field-row,
   .tree-heading,
@@ -2300,15 +2431,15 @@ a {
 
   .support-column,
   .support-column.is-panel-collapsed {
-    grid-template-columns: var(--resize-gutter-width) 96px minmax(0, 1fr);
+    grid-template-columns: var(--resize-gutter-width) var(--rail-width) minmax(0, 1fr);
   }
 
   .rail-button {
-    min-height: 84px;
+    min-height: 78px;
   }
 
   .rail-button-label {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .definition-row {
