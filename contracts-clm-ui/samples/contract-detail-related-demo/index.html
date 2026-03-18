@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ContractS CLM Sample | 契約書詳細</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    >
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="global-header">
+        <div class="header-left">
+          <div class="brand-area">
+            <button type="button" class="logo-button" aria-label="ホームへ移動">
+              <span class="material-symbols-rounded nav-icon" aria-hidden="true">domain</span>
+            </button>
+            <button type="button" class="company-button" aria-label="所属会社を切り替える">
+              <span class="company-label">【社内】ContractS株式会社</span>
+              <span class="company-caret" aria-hidden="true">▼</span>
+            </button>
+          </div>
+          <span class="header-divider" aria-hidden="true"></span>
+          <nav class="global-nav" aria-label="グローバルナビゲーション">
+            <a href="#" class="nav-item">ホーム</a>
+            <a href="#" class="nav-item">チャネル</a>
+            <a href="#" class="nav-item">プロジェクト</a>
+            <a href="#" class="nav-item is-active" aria-current="page">契約管理</a>
+            <a href="#" class="nav-item">案件管理</a>
+          </nav>
+        </div>
+        <div class="utility-nav" aria-label="補助操作">
+          <button type="button" class="utility-button" aria-label="ヘルプ">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">help</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="検索">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">search</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="アカウント窓口">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">alternate_email</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="通知 3 件">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">notifications</span>
+          </button>
+          <button type="button" class="avatar-button" aria-label="ユーザーメニューを開く">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">person</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="detail-page">
+        <section class="viewer-column" aria-labelledby="contractTitle">
+          <div class="document-header">
+            <p class="document-code">文書管理番号: contracts-00001</p>
+            <div class="document-title-row">
+              <span class="document-icon" aria-hidden="true">
+                <span class="material-symbols-rounded">picture_as_pdf</span>
+              </span>
+              <div class="document-title-group">
+                <div class="document-title-line">
+                  <h1 id="contractTitle">ダミー秘密保持契約書</h1>
+                  <a href="#" class="inline-link" data-demo-toast="契約編集画面への遷移はモックです。">編集</a>
+                </div>
+                <p class="document-meta">第1版　更新日: 2026/03/18 10:00 （担当者A）</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="viewer-tabs" id="viewerTabs" role="tablist" aria-label="文書ビュータブ"></div>
+          <div class="viewer-surface" id="viewerTabPanel"></div>
+        </section>
+
+        <aside class="support-column" id="supportColumn">
+          <div
+            class="rail-resize-gutter"
+            id="railResizeGutter"
+            role="separator"
+            aria-label="右詳細エリアの幅を変更"
+            aria-orientation="vertical"
+            tabindex="0"
+          >
+            <span class="resize-handle" aria-hidden="true"></span>
+          </div>
+
+          <div class="section-rail-shell">
+            <nav class="section-rail" id="sectionRail" aria-label="契約詳細セクション"></nav>
+            <button
+              type="button"
+              class="rail-toggle-button"
+              id="railToggleButton"
+              aria-label="右詳細パネルを閉じる"
+            >
+              <span class="material-symbols-rounded" id="railToggleIcon" aria-hidden="true">last_page</span>
+            </button>
+          </div>
+
+          <section class="detail-panel" id="detailPanel">
+            <div class="detail-panel-header">
+              <div>
+                <h2 class="detail-panel-title" id="panelTitle">関連契約書</h2>
+                <p class="panel-caption" id="panelCaption"></p>
+              </div>
+              <div class="panel-header-actions" id="panelHeaderActions"></div>
+            </div>
+            <div class="detail-panel-body" id="detailPanelBody"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="memoModalBackdrop" hidden>
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="memoModalTitle"
+        aria-describedby="memoModalDescription"
+      >
+        <div class="modal-header">
+          <div>
+            <p class="modal-kicker">Memorandum</p>
+            <h2 id="memoModalTitle">覚書を追加</h2>
+            <p class="modal-description" id="memoModalDescription">
+              覚書の親契約、発効日、要点を設定します。
+            </p>
+          </div>
+          <button
+            type="button"
+            class="icon-button"
+            id="closeMemoModalButton"
+            aria-label="覚書編集を閉じる"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </div>
+
+        <form class="modal-form" id="memoForm">
+          <input type="hidden" id="memoNodeId" name="memoNodeId">
+
+          <label class="field">
+            <span class="field-label">覚書名</span>
+            <input
+              type="text"
+              class="field-control"
+              id="memoTitleInput"
+              name="title"
+              maxlength="80"
+              required
+            >
+          </label>
+
+          <label class="field">
+            <span class="field-label">紐づけ先</span>
+            <select class="field-control" id="memoParentSelect" name="parentId" required></select>
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">発効日</span>
+              <input
+                type="date"
+                class="field-control"
+                id="memoEffectiveDateInput"
+                name="effectiveDate"
+                required
+              >
+            </label>
+
+            <label class="field">
+              <span class="field-label">ステータス</span>
+              <select class="field-control" id="memoStatusSelect" name="status" required>
+                <option value="作成中">作成中</option>
+                <option value="承認進行中">承認進行中</option>
+                <option value="承認完了">承認完了</option>
+                <option value="締結進行中">締結進行中</option>
+                <option value="締結済み">締結済み</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field-label">概要</span>
+            <textarea
+              class="field-control textarea"
+              id="memoSummaryInput"
+              name="summary"
+              rows="4"
+              maxlength="200"
+              required
+            ></textarea>
+          </label>
+
+          <div class="modal-meta" id="memoCodePreview"></div>
+
+          <div class="modal-actions">
+            <button type="button" class="button button-light" id="cancelMemoButton">キャンセル</button>
+            <button type="submit" class="button button-primary" id="saveMemoButton">保存する</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
