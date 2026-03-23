@@ -18,7 +18,7 @@
 
 ---
 
-## When not to use（重要）
+## When not to use
 
 - 長いフォーム（→ Full Modal）
 - 破壊操作の短い確認（→ Dialog）
@@ -31,47 +31,25 @@
 - Overlay
 - Modal Container
 - Header
-  - Title
-  - Close
 - Body（scrollable）
 - Footer Actions
 
 ---
 
-## Layout（最重要）
+## Layout
 
-### 構造
-
-Header（固定 or 準固定）
-↓  
-Scrollable Body  
-↓  
-Footer（固定）
-
----
-
-### ルール
-
-- Bodyのみスクロール
-- 背景スクロール禁止（scroll lock）
-- TitleとActionsは常に認識可能
+- `Header → Scrollable Body → Footer` の順で構成する
+- `Body` のみスクロールさせる
+- 共通ルールは `foundations/overlay-surface.md` を優先する
 
 ---
 
 ## Size
 
-### Width
-
 - small: 400px
 - medium: 520–640px（標準）
 - large: 720–800px（上限）
-
----
-
-### Height
-
 - max-height: 80–90vh
-- 超過時はBodyスクロール
 
 ---
 
@@ -86,20 +64,12 @@ Footer（固定）
 
 ## Typography
 
-### Title
-
-- font-size: 16–18px
-- font-weight: 600
+- Title: 16–18px / 600
+- Body: 14px
 
 ---
 
-### Body
-
-- 14px
-
----
-
-## Color
+## Color usage
 
 - Background: #FFFFFF
 - Overlay: rgba(0,0,0,0.4)
@@ -107,61 +77,11 @@ Footer（固定）
 
 ---
 
-## Header
-
-### 構成
-
-- 左: Title
-- 右: Close（×）
-
----
-
-### ルール
-
-- Closeは必須
-- スクロールしても消えない配置が望ましい
-
----
-
-## Footer Actions（重要）
-
-### 配置
-
-- 右寄せ
-
----
-
-### 構成
-
-- Primary: 1つ
-- Secondary: cancel / close
-
----
-
-### ルール
-
-- Primaryは最も目立つ
-- 誤操作を防ぐため間隔を確保
-
----
-
 ## Variants
 
-### Form Modal
-
-- 入力主体
-
----
-
-### Informational Modal
-
-- 説明主体
-
----
-
-### Confirmation Modal
-
-- Dialogに近いが情報量多め
+- Form Modal
+- Informational Modal
+- Confirmation Modal
 
 ---
 
@@ -175,114 +95,45 @@ Footer（固定）
 
 ---
 
-## Interaction Rules（重要）
+## Interaction rules
 
-- Escで閉じる（dirty時は例外）
 - overlayクリックで閉じるかは用途次第（危険操作時は無効）
 - 未保存変更 → 確認Dialog
-- primary actionは1つ
+- primary action は 1 つ
 
 ---
 
-## Scroll Behavior（重要）
+## Keyboard interactions
 
-- Bodyのみscroll
-- Header / Footerは固定または視認可能維持
-- 二重スクロール禁止
-
----
-
-## Keyboard Interaction
-
-- Tab: modal内で循環（focus trap）
+- Tab: modal 内で循環
 - Enter: primary action（フォーム時）
 - Esc: close（条件付き）
 
 ---
 
-## Accessibility
+## ARIA requirements
 
-- role="dialog"
-- aria-modal="true"
-- aria-labelledby（title）
-
----
-
-## ARIA
-
-- aria-describedby（説明がある場合）
 - 初期フォーカスは最初の入力 or Title
 
 ---
 
-## Responsive
+## Responsive behavior
 
-### Tablet
-
-- width: 90%
-
----
-
-### Mobile
-
-- フル幅
-- Footer固定維持
+- tablet: width 90%
+- mobile: フル幅、footer を視認可能に保つ
 
 ---
 
-## Composition Rules
+## Composition rules
 
-- Form Label / Input / Dropdown / Buttonと組み合わせる
-- Full Modal / Dialogと混同しない
-
----
-
-## Modal / Full Modal / Dialogの境界（重要）
-
-### Dialog
-
-- Yes / No 判断
-- 1〜2行の確認
+- Form Label / Input / Dropdown / Button と組み合わせる
+- Full Modal / Dialog と混同しない
+- input / select / textarea は原則 single column の縦積みとする
 
 ---
 
-### Modal
+## Anti-patterns
 
-- 中規模入力・確認（本コンポーネント）
-
----
-
-### Full Modal
-
-- 大量入力 / 長時間操作
-
----
-
-## Anti-patterns（重要）
-
-- 長すぎてスクロール地獄
-- Primaryが複数ある
-- 背景スクロールが動く
-- Footerが見えない
-- Dialog用途をModalで代替
-- ページ遷移をModalで代替
-
----
-
-## Visual Constraint
-
-- フラットUI
-- 過剰装飾禁止
-
----
-
-## Example structure
-
-Modal  
-├─ Header  
-│  ├─ Title  
-│  └─ Close  
-├─ Scrollable Body  
-└─ Footer  
-   ├─ Secondary  
-   └─ Primary  
+- 長いフォームを modal に押し込む
+- body 以外もスクロールする
+- primary action を複数並べる

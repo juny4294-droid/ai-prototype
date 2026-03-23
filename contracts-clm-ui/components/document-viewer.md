@@ -52,7 +52,7 @@
 - underline tab を基本とし、active のみ明確に示す
 - tab 自体を segmented button や pill に変えない
 - tab は document header の直下、viewer の直上に置く
-- tab は `min-height: 44px`, `font-size: 13px`, `font-weight: 700`, `gap: 28px`, `underline: 3px` を基本とする
+- tab は `width: 72px`, `height: 52px`, `font-size: 13px`, `font-weight: 700`, `gap: 28px`, `underline: 3px` を基本とする
 - tab 帯の背景は document header と同じ白面で扱い、別 strip に分離しない
 - tab 帯の上に追加の top border を置かない
 
@@ -106,6 +106,10 @@ Rules:
 - tab → action strip → embedded toolbar → canvas の順を崩さない
 - viewer 本体は main content の主役として十分な面積を確保する
 - canvas は中央 card ではなく、viewer shell の一部として扱う
+- contract detail の本文面は `flat document surface` を基本とし、本文全体を余計な card border / shadow / large radius で囲わない
+- sample で embedded toolbar を簡略化する場合も、本文面は `角丸カード` にせず product の document area に近いフラットさを保つ
+- 契約書本文は section ごとに背景色を切り替えず、1 枚の連続した紙面として見せる
+- 本文途中に gray strip や background break が見える構成を作らない
 - narrow width でも tab と action strip の意味関係を維持する
 - document header の identity block、tab、action strip までは同じ白い上部 shell として連続させる
 - viewer の淡い gray 背景や PDF shell の始点は、tab / action strip の下にある 1px divider より下に限定する
@@ -143,6 +147,7 @@ Rules:
 - viewer 上部 action を header の primary CTA 群に混ぜる
 - PDF toolbar を独自デザインで再構築する
 - 本文 preview を複数 card に分解する
+- 本文全体を白 card + 強い border + 大きな radius で浮かせる
 
 ---
 

@@ -61,23 +61,9 @@
 10. `ファイル`
 11. `ログ`
 
-Visual grouping:
-- `概要 → 項目`
-- `契約審査 → タスク → コメント`
-- `承認 → 締結`
-- `編集ルーム → 関連契約書 → ファイル → ログ`
-
-Optional:
-- 最下部に rail utility / collapse control を置いてよい
-
-### Fixed-order Rules
-
 - 上記順序を契約書詳細画面の right tab の固定順とする
 - rail は 4 つの視覚 group として扱い、group separator を `項目` の後、`コメント` の後、`締結` の後へ入れる
-- group separator は rail の全高を分断する太線ではなく、item 間に入る `1px` の細い区切り線とする
-- group separator の左右 inset は通常 item の content 幅に揃え、rail 外枠までベタで伸ばさない
 - 項目の追加・削除があっても既存項目の相対順は変えない
-- detail panel の定義順もこの順に揃える
 
 ---
 
@@ -88,8 +74,7 @@ Optional:
 - `ログ` を `履歴` に置き換えない
 - rail 上だけ別名を使わない
 - rail 幅は固定とし、ラベル長に応じて rail 自体を伸縮させない
-- 現行固定項目では `関連契約書` が 1 行で読める幅を確保する
-- label は rail 専用の `11px / 700 / line-height 1.3` を基本とする
+- label は rail 専用の `10px / 700 / line-height 1.2` を基本とする
 - label は中央揃えで、icon の真下に置く
 - label の左右位置を indicator や active 状態でずらさない
 
@@ -102,15 +87,15 @@ Optional:
 - icon と label は item 内で中央揃えする
 - label は固定項目では 1 行表示を基本とし、rail 幅を広げて逃がさない
 - item 高さは均一に保ち、項目ごとに高さを変えない
-- item の基本サイズは `min-height: 78px`, `padding: 8px 4px 10px` とする
-- icon wrapper は item 中央に固定し、`28px x 28px` を基本とする
-- icon size は `24px` を基本とする
-- icon と label の縦 gap は `6px` を基本とする
-- label は `11px / 700 / line-height 1.3` を基本とする
+- item の基本サイズは `width: 68px`, `min-height: 72px`, `padding: 6px 4px 8px` とする
+- icon wrapper は item 中央に固定し、`22px x 22px` を基本とする
+- icon size は `20px` を基本とする
+- icon と label の縦 gap は `4px` を基本とする
 - rail item を pill button にしない
 - rail と detail panel の境界には 1px の divider を置く
 - icon は material symbols 系を基本とする
 - icon を decorative に大きくしすぎず、cell 内で compact に収める
+- rail item を card や large button のようなゆるい面密度にしない
 
 ---
 
@@ -122,12 +107,13 @@ Optional:
 - item は縦一列で積む
 - active item だけ淡い背景反転で示す
 - rail の幅は narrow に保ち、main panel の幅を圧迫しない
-- rail 幅は `90px` を基本とし、固定項目の見た目に合わせて可変にしない
+- rail 幅は `68px` を基本とし、固定項目の見た目に合わせて可変にしない
 - rail 幅には resize gutter を含めない
 - rail を消して top tab 群に置き換えない
 - rail 全体の背景は白基調とし、item 単位の矩形で切り替わる見え方を優先する
 - active 背景は item 幅いっぱいに敷き、左線 indicator は使わない
 - item 間は card gap を作らず、cell divider で区切る
+- rail は `narrow cell navigation` として扱い、左右余白や icon を大きくして間延びさせない
 
 ---
 
@@ -136,9 +122,8 @@ Optional:
 - resize gutter は viewer と rail の間に置く
 - resize gutter は rail item ではなく、navigation に数えない独立要素として扱う
 - gutter 幅は `10px` を基本とする
-- gutter 背景は薄い neutral 色とし、rail の白背景と 1 段低い面で見せる
 - gutter 中央には draggable handle を置いてよい
-- handle は縦向きの短い `2 本線` を基本とし、primary color を使って存在を示す
+- handle は縦向きの短い `2 本線` を基本とする
 - handle は常時中央付近に固定し、rail item の active 表現と混同させない
 - gutter 自体を太い border や濃色帯にしない
 
@@ -159,17 +144,10 @@ Optional:
 - indicator は item の位置関係を崩さない小ささに留める
 - indicator がない通常状態でも icon と label の重心を変えない
 - indicator は item 全体ではなく icon wrapper の右上に重ねて配置する
-- indicator は icon wrapper の外周に半分だけはみ出す程度の位置に固定する
 - indicator の基準点は `item edge` ではなく `icon wrapper edge` とする
 - label 行の高さや横位置を indicator に合わせて変えない
-- count badge は actionable backlog を示すときに使う
-- dot indicator は unread / update の存在だけを示すときに使う
+- badge の count / dot の細かい定義は `components/badge.md` を優先する
 - 1 つの item に dot と count badge を同時表示しない
-- count badge の 3 桁以上は `99+` を基本とする
-- count badge は `22px` 円形、文字は `10px / 700` を基本とする
-- count badge は icon wrapper の右上から `x: +5px / y: -3px` 程度ずらして重ねる
-- dot indicator は `10px` 円形を基本とする
-- dot indicator は icon wrapper の右上から `x: +4px / y: 0px` 程度ずらして重ねる
 
 ---
 
@@ -207,7 +185,7 @@ Optional:
 - `patterns/contract-detail.md` の right detail panel と組み合わせる
 - generic `sidebar.md` の content section list とは役割を分離する
 - rail は navigation、panel は content として責務を分ける
-- indicator は `components/badge.md` の compact variant を使う
+- indicator は `components/badge.md` の overlay indicator variant を使う
 - icon は rail 専用に 1 色線形で扱い、badge と主従を逆転させない
 
 ---

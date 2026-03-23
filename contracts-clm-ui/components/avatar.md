@@ -121,6 +121,8 @@
 - name は `14px / 700`、meta は `12px / line-height 1.6` を基本とする
 - avatar と text の横 gap は `12px` を基本とする
 - row の cross-axis は中央揃えとし、avatar の面積で行高を押し広げない
+- avatar 付き人物表示では `avatar + name/meta` を 1 つの text block として扱い、name だけを 1 文字ずつ縦落ちさせない
+- 狭幅で 1 行に収まらない場合は、name と message 全体を 2 段化し、name だけを細い列に押し込まない
 - `comments / timeline` 用の `md: 32px` をそのまま拡大流用しない
 - 48px 以上の大きい avatar を summary row に置かない
 

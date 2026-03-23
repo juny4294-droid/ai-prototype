@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ContractS CLM Sample | Contract Detail Rule Validation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    >
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="global-header">
+        <div class="brand-group">
+          <button type="button" class="logo-button" aria-label="ホームへ移動">
+            <span class="material-symbols-rounded" aria-hidden="true">domain</span>
+          </button>
+          <button type="button" class="company-button" aria-label="所属会社を切り替える">
+            <span>【社内】ContractS株式会社</span>
+            <span aria-hidden="true">▼</span>
+          </button>
+        </div>
+        <nav class="global-nav" aria-label="グローバルナビゲーション">
+          <a href="#" class="nav-item">ホーム</a>
+          <a href="#" class="nav-item">チャネル</a>
+          <a href="#" class="nav-item">プロジェクト</a>
+          <a href="#" class="nav-item is-active" aria-current="page">契約管理</a>
+          <a href="#" class="nav-item">案件管理</a>
+        </nav>
+        <div class="utility-nav" aria-label="補助操作">
+          <button type="button" class="utility-button" aria-label="ヘルプ">
+            <span class="material-symbols-rounded" aria-hidden="true">help</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="検索">
+            <span class="material-symbols-rounded" aria-hidden="true">search</span>
+          </button>
+          <button type="button" class="utility-button" aria-label="通知 1 件">
+            <span class="material-symbols-rounded" aria-hidden="true">notifications</span>
+            <span class="utility-dot" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="avatar-button" aria-label="ユーザーメニューを開く">
+            <span class="material-symbols-rounded" aria-hidden="true">person</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="detail-layout">
+        <section class="viewer-column" aria-labelledby="documentTitle">
+          <header class="document-header">
+            <p class="document-code">文書管理番号：contracts-sample-5102</p>
+            <div class="document-title-row">
+              <div class="document-title-group">
+                <span class="document-icon" aria-hidden="true">
+                  <span class="material-symbols-rounded">picture_as_pdf</span>
+                </span>
+                <div class="document-copy">
+                  <div class="title-line">
+                    <h1 id="documentTitle">秘密保持契約</h1>
+                    <a href="#" class="inline-link">編集</a>
+                  </div>
+                  <p>第1版　更新日：2026/03/20 11:20（法務管理チーム）</p>
+                </div>
+              </div>
+              <div class="viewer-actions">
+                <a href="#" class="helper-link">締結済み契約書の印影について</a>
+                <div class="icon-actions">
+                  <button type="button" class="header-icon-button" aria-label="ダウンロード">
+                    <span class="material-symbols-rounded" aria-hidden="true">download</span>
+                  </button>
+                  <button type="button" class="header-icon-button" aria-label="更新">
+                    <span class="material-symbols-rounded" aria-hidden="true">refresh</span>
+                  </button>
+                  <button type="button" class="header-icon-button" aria-label="表示">
+                    <span class="material-symbols-rounded" aria-hidden="true">visibility</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="viewer-tabs" role="tablist" aria-label="文書ビュー切り替え">
+              <button type="button" class="viewer-tab is-active" role="tab" aria-selected="true">契約書</button>
+              <button type="button" class="viewer-tab" role="tab" aria-selected="false">変更履歴</button>
+            </div>
+          </header>
+
+          <div class="viewer-body">
+            <div class="viewer-frame">
+              <div class="viewer-toolbar">
+                <span class="toolbar-chip dark">自動ズーム</span>
+              </div>
+              <article class="document-sheet">
+                <h2>秘密保持契約書</h2>
+                <p>契約当事者</p>
+                <p>甲：デモ株式会社</p>
+                <p>乙：デモパートナー株式会社</p>
+                <div class="sheet-divider"></div>
+                <p>第1条（基本合意）</p>
+                <p>甲および乙は、対象事項についての秘密保持契約を締結する。</p>
+                <p>第2条（開示）</p>
+                <p>必要と認められる範囲内で、相互に秘密情報を開示する。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="resize-gutter" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <aside class="support-shell" aria-label="契約詳細補助情報">
+          <nav class="section-rail" aria-label="契約詳細セクション">
+            <button type="button" class="rail-item" data-panel="summary">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">info</span>
+              <span class="rail-label">概要</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="fields">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">folder</span>
+              <span class="rail-label">項目</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="review">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">description</span>
+              <span class="rail-label">契約審査</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="tasks">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">check_box</span>
+              <span class="rail-label">タスク</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="comments">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">chat</span>
+              <span class="rail-badge" aria-hidden="true">2</span>
+              <span class="rail-label">コメント</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="approval">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">approval</span>
+              <span class="rail-label">承認</span>
+            </button>
+            <button type="button" class="rail-item is-active" data-panel="signing" aria-current="page">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">radio_button_checked</span>
+              <span class="rail-label">締結</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="room">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">groups</span>
+              <span class="rail-label">編集ルーム</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="related">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">article</span>
+              <span class="rail-dot" aria-hidden="true"></span>
+              <span class="rail-label">関連契約書</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="files">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">attach_file</span>
+              <span class="rail-label">ファイル</span>
+            </button>
+            <button type="button" class="rail-item" data-panel="logs">
+              <span class="rail-icon material-symbols-rounded" aria-hidden="true">history</span>
+              <span class="rail-label">ログ</span>
+            </button>
+          </nav>
+
+          <section class="detail-panel" aria-labelledby="panelTitle">
+            <header class="panel-header">
+              <div class="panel-header-copy">
+                <h2 id="panelTitle">締結依頼</h2>
+                <p id="panelCaption" hidden></p>
+              </div>
+              <div class="panel-actions" id="panelAction">
+                <a href="#" class="inline-text-action">編集</a>
+              </div>
+            </header>
+
+            <div class="panel-body" id="panelBody"></div>
+
+            <div class="panel-devbar" aria-label="sample state switch">
+              <span class="devbar-label">Sample state</span>
+              <div class="panel-toolbar">
+                <button type="button" class="toolbar-chip is-active" data-state="default">Default</button>
+                <button type="button" class="toolbar-chip" data-state="loading">Loading</button>
+                <button type="button" class="toolbar-chip" data-state="empty">Empty</button>
+                <button type="button" class="toolbar-chip" data-state="error">Error</button>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

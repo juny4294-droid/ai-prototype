@@ -82,7 +82,7 @@
 - `契約書 / 変更履歴` の 2 項目を固定で使う
 - 順序は `契約書` → `変更履歴`
 - tab list は白背景、下辺 1px border を基本とする
-- tab item は `min-height: 44px`, `font-size: 13px`, `font-weight: 700` を基本とする
+- tab item は `width: 72px`, `height: 52px`, `font-size: 13px`, `font-weight: 700` を基本とする
 - tab 間 gap は `28px` を基本とする
 - active underline は `3px` を基本とする
 - top border は置かない

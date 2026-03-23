@@ -2,6 +2,8 @@
 
 - Status: refined
 - Source: documented ContractS contract detail baseline
+- Tab content baseline: `samples/tab-content.pdf`
+- Shell order baseline: `samples/product-image_contract-detail.png`
 
 ## Purpose
 
@@ -15,9 +17,13 @@
 - 指示された変更箇所以外は、本 pattern と component rule で定義した fixed shell を維持する
 - full detail page を新しい visual language で再設計しない
 - layout、密度、固定文言、固定順序を勝手に変えない
-- rule の記述を外部参照前提で終わらせず、寸法、順序、余白、文字サイズ、divider 位置を markdown 内に明文化する
+- component に正本がある値は再掲せず、pattern では画面構造、責務、順序に集中する
 - 右 panel の機能追加があっても、header、viewer、rail などの固定領域は維持する
 - sample / prototype では PDF 本文、契約名、ファイル名、担当者名を実在データ風にせず、常にダミー値で統一する
+- 指示がない限り、詳細画面のタブ数と順番は既存状態をそのまま維持し、追加・削除・並び替えを行わない
+- `samples/tab-content.pdf` に tab content baseline がある場合、tab title、section order、action placement、state transition はその baseline を優先する
+- tab content baseline がある tab では、明示指示なしに state を削ったり、別の情報構造へ置き換えない
+- right rail と詳細 tab の既存順は `samples/product-image_contract-detail.png` を正本とし、特に指示がない限りその順番を維持する
 
 ### Fixed Areas（変更禁止に近い扱い）
 
@@ -80,13 +86,14 @@ Related Components:
 - 右側は「icon rail + single panel」の 2 層を基本とし、icon rail を省略しない
 - right section rail は desktop で必須とし、現在の選択 section を切り替える
 - resize gutter は rail と一体化させず、viewer 側の独立レイヤーとして扱う
-- right section rail の幅は `90px` の compact 幅を基本とする
 - right detail panel の幅は `380–440px` を基本とする
 - right detail panel は viewport に対して独立スクロールできるようにする
 - main content と right side の間は divider で分離し、広い card gap を作らない
 - full detail page の右 panel は「1つの active module を表示する panel」とし、複数 module を同時表示しない
 - full detail page の右 panel に主編集フォームを置かない
 - main content の内容を right detail panel に重複表示しない
+- 画像基準に近づける場合も、契約書名や担当者名などの mock data は画像から転記せず、visual token と layout 比率だけを参照する
+- 比率に迷う場合は `viewer が最大 / right rail が最細 / detail panel が狭く高密度` を優先する
 
 ---
 
@@ -108,6 +115,7 @@ Related Components:
 - full detail page を hero layout、card mosaic、dashboard 風 layout にしない
 - header、viewer、rail は本ドキュメントで定義した fixed shell を維持し、差分は panel detail 側へ閉じ込める
 - `関連契約書` の改善でも rail 全体や viewer shell を redesign しない
+- `契約書 / 変更履歴` のタブ数と順番は、明示指示がない限り既存状態のまま固定する
 
 ---
 
@@ -157,37 +165,15 @@ Related Components:
 - rail 項目は panel の内容都合で増減・並び替えしない
 - rail の左側には draggable resize gutter を固定で置く
 - resize gutter を rail item や active indicator の一部に見せない
+- 指示がない限り、right section rail の項目数と順番は既存状態をそのまま維持する
+- right section rail の既存順は `samples/product-image_contract-detail.png` を正本とする
 
 ---
 
 ## Right Section Rail（固定）
 
-### Fixed Items
-
-1. `概要`
-2. `項目`
-3. `契約審査`
-4. `タスク`
-5. `コメント`
-6. `承認`
-7. `締結`
-8. `編集ルーム`
-9. `関連契約書`
-10. `ファイル`
-11. `ログ`
-
-Rules:
-- 上記の文言をそのまま使う
-- right rail の 1 列縦積みを固定し、top tab や grid に変えない
-- rail の group separator は `項目` の後、`コメント` の後、`締結` の後へ入れる
-- active 項目のみ淡い背景反転を行う
-- collapse control を置く場合は最下部の utility として扱い、section item と混同させない
-- indicator は rail item 全体ではなく icon wrapper の右上に重ねる
-- count badge と dot indicator は同時表示しない
-- rail は `90px` の compact 幅を基本とし、icon や label の都合で肥大化させない
-- rail label は `11px / 700 / line-height 1.3` を基本とする
-- rail icon は `24px` 帯を基本とし、見出し級の大きさまで拡大しない
-- rail item は `78px` 前後の高さを基本とする
+- fixed items、順序、indicator、gutter の正本は `components/section-rail.md` を使う
+- pattern 側では rail の見た目や寸法を再定義せず、section の責務順だけを扱う
 
 ---
 
@@ -199,25 +185,16 @@ Rules:
 - full detail page では independent card を何枚も並べず、1枚の panel 内で section / divider / list で整理する
 - 値表示は definition list、accordion、timeline、thread comments を使い分ける
 - section 見出しの下は divider 基本で区切り、heavy shadow に頼らない
+- panel header は compact を基本とし、画像基準にない caption や helper text を自動追加しない
+- `概要 / 項目 / 承認` などの detail は card 群よりも `accordion + divider-separated rows` を優先する
+- card を使うのは `関連契約書 / 編集ルーム / upload area / selected item` など、独立 object を示すときに限る
+- support panel の通常 section は `white surface + divider` を基本とし、heavy shadow card を既定にしない
+- `契約審査 / 承認 / 締結` の create / progress state では、主要 action は panel 下端の footer action strip にまとめる
+- rail 内の badge、required chip、count indicator は小さく保ち、active 背景や title より目立たせない
+- `承認 / 締結` の progress block は `axis lane + stage header row + content lane` を前提にし、status marker を card に重ねない
+- progress line、marker、stage title、card の開始位置は同一 grid 上で揃え、見た目上の食い込みで調整しない
 
-### Reproduction Baseline
-
-- panel 全体は白背景 1 面とし、rail との間は 1px divider で分離する
-- panel header は `title block 左 / action 右` の 1 行を基本とし、header 下に 1px divider を置く
-- panel header padding は `28px 32px 24px` を基本とする
-- panel body padding は `24px 32px 36px` を基本とする
-- panel title は左寄せ固定とし、中央揃えや hero 的な余白を作らない
-- panel title は `概要` のような単語でも小さくしすぎず、section body の label 群より 2 段階強い階層で見せる
-- panel title の左 inset は accordion header の左 inset と揃え、左右で見え方をぶらさない
-- panel caption がある場合は title の直下に 1 行だけ置き、説明文を header に詰め込みすぎない
-- top-level の panel block は 1 column stack とし、block 間は divider と縦余白で分離する
-- top-level block を shadow card で多重に分割しない
-- panel 内の既定本文サイズは `16px / line-height 1.75` を基本とする
-- `field value 20px` は単独値や主値に限り、説明文や長文本文を 20px へ拡大しない
-- member avatar は `36px` を基本とし、summary row で過度に大きくしない
-- member name は `14px / 700`、member role は `12px / line-height 1.6` を基本とする
-- member row の avatar-text gap は `12px` を基本とする
-- secondary meta や補助説明は `12–14px` 帯に収め、panel title や主値と競合させない
+- panel shell の正本は `components/sidebar.md` を優先する
 
 ### Existing Component Mapping
 
@@ -238,25 +215,21 @@ Rules:
 ### 共通ルール
 
 - 各 tab の detail はこの pattern に定義した構造と typography を優先する
-- 実際の rail 表示順と panel 切り替え順は、下記の個別説明章の並びではなく `Right Section Rail（固定）` の順序を常に優先する
+- 実際の rail 表示順と panel 切り替え順は `components/section-rail.md` の固定順を常に優先する
 - tab ごとに generic card layout を流用せず、役割に合った情報構造を使う
 - panel shell、余白、見出し階層、divider の作法は共通化する
 - 各 tab detail で main content の document identity を重複表示しない
-- panel title は `30px / 700 / line-height 1.3` を基本とする
-- panel header link action は `14px / 700`、button action は `components/button.md` の size/variant を使う
-- accordion header は `22px / 700 / line-height 1.4`, `min-height: 80px` を基本とする
-- field label は `14px / 700`、field value は `20px / 400` を基本とする
-- 長文の本文値、説明文、コメント本文、保存場所 link などは `16px / line-height 1.75` を基本とする
-- rail label は `11px / 700 / line-height 1.3` を基本とする
-- rail icon は `24px`、rail item は `78px` 前後の高さを基本とする
-- activity log の actor name は `16px / 700`、message は `18px / line-height 1.8` を基本とする
+- typography や spacing の固定値は component 側の正本を優先し、pattern では再掲しない
 - panel title の下では accordion header を最初の major section として連続配置し、見出しの直後に余計な card gap を作らない
-- accordion header の左右 padding は `32px`、body 側の左右 padding も `32px` を基本として揃える
+- sample 用の説明文や state 切替 controls を置く場合も、tab 本来の主役である list / tree / thread / field より強く見せない
+- 各 tab panel は `タイトル → 説明 → 必要なアイテム` の縦積みを基本とし、横並びや極端な狭幅で読順を壊さない
+- PDF baseline がある tab では `empty / create / detail / progress` などの state 数を勝手に減らさない
+- PDF baseline がある tab では section title、inline action、footer action の位置を入れ替えない
 
 ### Tab-by-Tab Component Mapping
 
-- `概要`: `components/sidebar.md` の full detail panel shell + `components/avatar.md` + text link + status tag
-- `項目`: `components/sidebar.md` の full detail panel shell + `components/button.md` + text link
+- `概要`: `components/sidebar.md` + `components/avatar.md` + text link + status tag
+- `項目`: `components/sidebar.md` + `components/button.md` + text link
 - `契約審査`: `components/button.md` + `components/dropdown.md` + `components/input-text.md` + `components/textarea.md` + `components/checkbox.md` + `components/datepicker.md` + `components/thread-comments.md`
 - `タスク`: `components/button.md` + `components/tag.md` + compact list / detail rows
 - `コメント`: `components/thread-comments.md` + `components/avatar.md` + `components/file-link.md` + `components/textarea.md` + `components/button.md`
@@ -287,6 +260,21 @@ Rules:
 - panel の先頭は `概要` 見出しとし、その下に `契約書の概要` accordion を置く
 - `契約書の概要` accordion は default open を基本とする
 - 概要 tab は summary card 群ではなく、single column の section stack で構成する
+
+### 6. 承認
+
+Rules:
+- progress 表示では `components/timeline.md` の step / approval flow variant を使う
+- 左側に axis line と円形 marker の専用 lane を持ち、`申請`、`承認待ち` などの stage title はその右の見出し行に置く
+- content card は stage title の直下で始め、title を card に重ねない
+- waiting card や completed card は title の下で同一 left edge から始め、item ごとに card の開始位置を変えない
+
+### 7. 締結
+
+Rules:
+- progress 型の締結フローは承認と同じく `axis lane + stage header row + content lane` を使う
+- step label は content 側の見出し行に置き、step number や status marker は左 lane に閉じ込める
+- signer card、notice、step detail は stage title の下に縦積みし、marker の面積で本文幅を圧迫しない
 - 大枠は `accordion header → section body → divider-separated subsections` の順で組む
 - 値表示は 2 column definition grid よりも、縦方向の label / value stack を優先する
 - `契約書のステータス` は label、主要ステータス文字列、補助 badge の順で見せる
@@ -297,6 +285,8 @@ Rules:
 - `契約書の保存場所` は link 的な見せ方を優先し、必要なら folder / building icon を併記してよい
 - destructive action は最下部に十分な余白を取って分離し、通常の情報 section に混ぜない
 - workflow、log、comments、関連契約情報は概要 tab に混ぜない
+- sample 用注記を置く場合も、説明 paragraph を value section より大きくしない
+- `契約書の概要 → status 群 → 説明 → 担当者 → フォロー中のメンバー → 保存場所 → destructive action` の順を維持する
 
 Basic structure:
 - `概要`
@@ -336,6 +326,8 @@ Rules:
 - 当事者、金額、更新条件、管理項目などの追加 group も `group title accordion → divider-separated fields` の構造へ揃える
 - badge や status は補助情報として使ってよいが、概要 tab の status summary と同じ見せ方へ寄せすぎない
 - workflow、log、comments、関連契約情報は項目 tab に混ぜない
+- `自動反映` などの補助 action は panel header 右上に 1 つまでとし、field group の中へ混ぜない
+- 長い項目 tab でも 2 column の field grid へ崩さず、single column の読み順を維持する
 
 Basic structure:
 - `項目`
@@ -376,6 +368,7 @@ Rules:
 - comment card 同士は panel 幅に沿って縦積みし、強い shadow ではなく `1px border + subtle separation` で区切る
 - 添付がある場合は本文直下に `components/file-link.md` で分離表示する
 - 公開範囲 tab がある場合も section rail とは別レイヤーとして扱う
+- blank state でも composer は panel 上部に残し、`コメントがないので入力できない` 状態を作らない
 
 Basic structure:
 - `公開 / 限定公開` scope 切り替え
@@ -398,6 +391,22 @@ Rules:
 - task list item は `カテゴリ tag / title / meta / body` の縦積みを基本とする
 - detail state では `依頼日 / 完了日 / 依頼者 / 完了者 / 担当者 / 内容 / ステータス / 期限` を 1 column stack で整理する
 - comment thread を持つ task は task detail の文脈内で扱う
+- task tab は `empty / list / create / detail` を基本 state とし、状態ごとに panel title は維持する
+- create と detail でも task 固有の metadata を timeline 化せず、single column detail として読む
+
+Basic structure:
+- `タスク`
+- `タスクを作成`
+- filter / status switch
+- task card list or task detail
+- `依頼日`
+- `完了日`
+- `依頼者`
+- `完了者`
+- `担当者`
+- `内容`
+- `ステータス`
+- `期限`
 
 ### 5. 関連契約書
 
@@ -420,12 +429,35 @@ Rules:
 - 文書 icon は `word / pdf / template` 系を使う
 - rail label は `関連契約書` のまま維持する
 - panel shell 自体は他 tab と同じルールに従う
+- 関連契約書 tab の責務は `依存関係 / 階層構造 / 並び順 / relation 状態` の表示と軽い変更に限定する
+- 関連契約書 tab では、契約内容の把握に寄る情報を持ち込みすぎず、`契約名 + 文書管理番号または契約ID + relation 種別 + status` を最小表示単位とする
+- ファイル名、保存先、金額、契約期間、説明文、担当者、案件要約など、relation 責務に直接寄与しない情報は原則この tab に常設しない
+- 追加情報が必要な場合は `契約詳細へ遷移する link` で逃がし、この tab 自体を summary panel 化しない
+- `関連契約書` tab の中で契約本文の要約や概要カードを重ねず、階層と状態の読み取りを優先する
 
 Extended rules:
 - 親子関係、原契約、覚書、閲覧中契約の区別や並び順変更が明示的に求められた場合のみ、flat card list から hierarchy variant へ拡張してよい
 - hierarchy variant では `原契約 / 親契約 / 子契約 / 覚書 / 閲覧中` を視覚的に区別する
 - 並び順変更は同一親配下の siblings に対して行う
-- 覚書の追加・変更は panel 内 action または modal で行ってよい
+- hierarchy variant の追加 / 編集では契約自体を新規作成・直接編集せず、既存契約を選択して relation だけを更新する
+- 紐づけ対象は検索可能な契約書 list から選択し、`契約書名 / 当事者 / 文書管理番号` で探せるようにする
+- list 上では契約名、当事者、文書管理番号、ステータスを read-only で確認する
+- `基本契約 / 個別契約 / 覚書` は relation tag として選択できるようにし、解除時は tag を外す
+- `解除` は依存関係だけを外して top-level へ残すのではなく、関連契約一覧から外す操作として扱ってよい
+- 解除後に再表示したい場合は、既存契約を検索して再度紐づける
+- parent を持たない contract は top-level node として tree 内に残し、別の未紐づけ section を作らない
+- `紐づけ先`、`配下件数`、`未紐づけ` など階層と重複する補助文言は表示しない
+- node の操作は 3 点リーダー menu に集約してよい
+- parent node は折りたたみ表示できること
+- 並び順変更と親変更は drag and drop を基本としてよく、drop で別階層へ付け替えられること
+- 閲覧中の契約は tree 内で outline highlight を持たせ、通常 node と first glance で区別できること
+- 解除の前には confirm dialog を出し、対象名と `一覧から外れる` 影響を明示すること
+- hierarchy variant でも表示情報は増やしすぎず、各 node は `階層上の位置を判別する情報` と `状態を示す情報` を優先する
+- hierarchy variant の node 内で description や長文補足を常時展開しない
+- hierarchy variant の panel 上部に全体像カード、件数 KPI、案件 summary などを置かず、`タイトル → 説明 → 必要なアイテム` の順序で relation UI を読める状態を保つ
+- sample 用の state switch や検証用 controls は tree の上に大きく置かず、必要なら panel 下部の補助領域へ退避する
+- panel header の title、説明、action は互いを押しつぶさず、狭幅でも縦方向の読順が成立する配置を維持する
+- 既存 sample や既存画面に relation panel の baseline がある場合、panel 幅、tree card の密度、connector、action size はまずその baseline を下回らない
 
 Basic structure:
 - `関連契約書`
@@ -453,6 +485,18 @@ Rules:
 - icon は `word / pdf / template` を使う
 - file name の下に更新日や版情報などの metadata を置ける
 - upload area がある場合も panel shell の中で扱う
+- `主契約書 / 添付資料 / 締結後書類 / 関連ドキュメント` の section を優先し、file type ごとの責務を混ぜない
+- upload area は section 末尾の補助 block とし、panel の主役にしない
+
+Basic structure:
+- `ファイル`
+- `主契約書`
+- file rows
+- `添付資料`
+- file rows
+- `締結後書類`
+- file rows
+- optional upload area
 
 ### 7. 編集ルーム
 
@@ -468,6 +512,16 @@ Rules:
 - 参加者 avatar は補助情報として使う
 - room item は `room 名 / 参加者 / 最新 activity / 件数 or 状態` の順に縦積みする
 - 参加者は `components/avatar.md` の group 表現を使ってよいが、主情報より目立たせない
+- `ルームのカード` と `完了したルーム` を別 section として分ける
+- 現在進行中の room card は `作成日時 / メンバー / URL / ルームを開く` を持ってよい
+- 完了 room は compact row / card とし、current room より弱い密度で並べる
+
+Basic structure:
+- `編集ルーム`
+- `ルームのカード`
+- current room card
+- `完了したルーム`
+- finished room rows
 
 ### 8. 契約審査
 
@@ -492,6 +546,8 @@ Rules:
 - reviewer や依頼先は人物 card ではなく compact row / list で扱う
 - コメント thread は依頼詳細の末尾に置き、global `コメント` tab と混ぜない
 - detail state の action は `削除`、`完了`、`編集` など task-like な軽い操作を基本とする
+- create state では `審査の種類 → 件名 → 内容 → task edit option → contract snapshot → 関連契約 → footer action` の順を基本とする
+- detail state では status、依頼者、担当者、内容、期限、snapshot、comments の順に読む
 
 Basic structure:
 - `契約審査`
@@ -522,6 +578,18 @@ Rules:
 - 現在位置、完了、保留、差戻しを区別する
 - 現在ステップを視認できるが、過度に大きくしない
 - step item は `step title / owner + at / status badge` の順で縦に読める構造を基本とする
+- 承認 tab は `empty / 作成 flow / progress detail` を基本 state とする
+- 作成 flow は `承認フロー選択 → 承認者 preview → 件名 → 内容 → 関連契約 → footer action` を基本とする
+- progress detail では current approver を強調し、step comment を該当 item 内で読む
+
+Basic structure:
+- `承認`
+- empty state or flow selector
+- approver preview
+- `件名`
+- `内容`
+- related contract selector
+- progress timeline
 
 ### 10. 締結
 
@@ -547,6 +615,9 @@ Rules:
 - 依頼後の state では、送付、署名、回収、締結済みファイル登録を step flow または timeline で整理する
 - `承認` と混ぜず、締結フェーズ固有の情報として扱う
 - file upload や締結確認 action を置く場合も 1 column stack を維持する
+- `依頼元切り替え → 契約手段選択 → 依頼内容入力 → progress` を基本 phase とする
+- progress state では `締結フロー` timeline を panel 本文の主軸にし、upload / comment / confirm はその後段に置く
+- service row、upload area、confirm action を small card grid に分解しない
 
 Basic structure:
 - `締結依頼` or `締結`

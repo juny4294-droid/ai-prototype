@@ -62,6 +62,9 @@ Author + Timestamp
 Message  
 Actions
 
+- Author は avatar の右の text block に置き、name だけが細い列に落ちないようにする
+- 狭幅で Author と Timestamp が競合する場合は、header row を 2 段化し、Author 名だけを縦落ちさせない
+
 ---
 
 ## Thread Structure（最重要）

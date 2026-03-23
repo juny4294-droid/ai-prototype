@@ -36,47 +36,54 @@
 
 ---
 
-## Size（確定）
+## Layout
+
+- center 配置の overlay surface とする
+- 構造順序は `Title → Description → Actions` で固定する
+- 共通ルールは `foundations/overlay-surface.md` を優先する
+
+---
+
+## Size
 
 - width: 400–480px
 - max-width: 90vw
 
 ---
 
-## Shape
+## Variants
 
-- border-radius: 8px
-
----
-
-## Background
-
-- white
+- destructive confirm
+- submit confirm
+- leave confirm
 
 ---
 
-## Shadow
+## States
 
-- modal shadow使用
-- 例: 0 4px 12px rgba(0,0,0,0.1)
-
----
-
-## Overlay
-
-- bg: rgba(0,0,0,0.4)
-- 背景操作は完全ブロック
+- open
+- loading
+- error
 
 ---
 
-## Layout
+## Interaction rules
 
-- center配置（縦横中央）
-- 構造順序固定：
+- primary action は 1 つに絞る
+- 背景操作は完全にブロックする
+- dirty state を持たない短い確認を基本とする
 
-```text
-Title
-↓
-Description
-↓
-Actions
+---
+
+## Composition rules
+
+- `button.md` と組み合わせて action を構成する
+- 長い form や複数 section を内包しない
+
+---
+
+## Anti-patterns
+
+- modal で扱うべき長い説明や入力を dialog に押し込む
+- destructive action の確認なしに閉じる
+- primary action を複数並べる

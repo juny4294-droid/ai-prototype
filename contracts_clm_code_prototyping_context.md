@@ -29,6 +29,13 @@ Version: 1.0
 - `contracts-clm-ui/patterns/*.md`
 - `contracts-clm-ui/tokens/tokens.json`
 
+### 参考資料の扱い
+
+- `samples/` 配下の既存 HTML や保存キャプチャは reference 扱いとし、foundation の代替にしない
+- raw HTML からは `画面構造 / 表示順 / visible state / ラベル体系 / shell の責務` だけを抽出する
+- third-party script、計測タグ、保存時に混入した CSS / JS、プロダクト固有 class 名はルール化しない
+- reference から新しい設計ルールを抽出できなければ、保存 HTML は長期保持しない
+
 ### 毎回差し替えるもの
 
 - 画面タイプ
@@ -45,7 +52,8 @@ Version: 1.0
 2. 対象画面の目的、主要操作、主要状態を整理する
 3. パターンとコンポーネントに分解する
 4. コードで 1 画面ずつ実装する
-5. 不足ルールがあれば foundations / components / patterns / tokens に戻して更新する
+5. 実装後に `foundations/checklist.md` で self-review し、違反があればその場で修正する
+6. 不足ルールがあれば foundations / components / patterns / tokens に戻して更新する
 
 ---
 
@@ -64,6 +72,7 @@ ContractS CLM のデザイン原則は以下。
 - 主要操作が迷わない
 - 装飾より可読性と判断しやすさを優先する
 - 実装可能な粒度で、状態や条件分岐を定義する
+- 一般的な UI ライブラリに近い安定感を、派手さではなく layout fidelity と component quality で担保する
 
 ---
 
@@ -138,6 +147,23 @@ ContractS CLM のデザイン原則は以下。
 - 情報の重要度は layout / spacing / typography / color の役割分担で表現する
 - 色だけで状態や重要度を表現しない
 - 補助情報は本文と競合しない強さに抑える
+- 画面品質を安定させるには、色や見た目の指示だけでなく `幅 / 高さ / gap / padding / divider / alignment` の固定値を与える
+- LLM に自由裁量を残しすぎると、段組ずれ、面の密着、不要な summary card、過剰な 2 カラム form が発生しやすい
+- v0 レベルの基礎品質を狙う場合は、以下の情報を前提として渡す
+  - fixed shell の幅、高さ、順序
+  - tab / input / button / rail item の寸法
+  - panel / card / section の padding と block 間 gap
+  - どこに divider を入れ、どこに入れないか
+  - summary を置いてよい場所、置いてはいけない場所
+  - support 領域に載せてよい情報の上限
+  - form が single column か multi column かの既定
+  - 遷移で逃がす情報と、その場で見せる情報の境界
+
+ただし、上記を毎回のプロンプトで細かく指定する必要はない。
+`foundations/quality.md` を既定の品質基準として扱い、
+個別プロンプトでは `ユースケース / 目的 / 責務 / 必要状態` に集中できる状態を目指す。
+生成後は `foundations/checklist.md` を自動チェックリストとして実行し、
+layout / hierarchy / component / density / form / accessibility を点検してから返す。
 
 ---
 

@@ -41,6 +41,14 @@ ContractS CLM の UI において、
 - 見出し直上に意味の薄い英字ラベルを置いて情報階層を増やす
 - 同じ意味の情報を要約と詳細で重複表示する
 - 指定のない左右並びカードで情報を分割する
+- 段組の左端・上端が揃わず、title / meta / action / divider の基準線が揺れる
+- card、panel、table、viewer が理由なくぴったり接して境界が消える
+- section note、legend、badge group と、その直下の card / tree / list を密着させる
+- 既存 shell の gutter、rail、panel 幅を無視して、画面ごとに別寸法を発明する
+- compact に見せるために padding を削り、可読性より面の圧縮を優先する
+- 「v0っぽく見せる」ためだけの summary card、KPI card、hero block を自動追加する
+- form 内で根拠なく 2 カラム配置を行い、読み順を崩す
+- panel 内で link、button、icon button のサイズや基準線が揃わない
 
 ---
 
@@ -90,3 +98,5 @@ LLMがUIを生成する際は以下を強制する。
 - タイトルやセクション見出しは日本語を正式表記とし、英字の補助ラベルを自動追加しない
 - ラベル、値、状態、補助情報の役割が混ざらないように分離する
 - まず読む情報、次に判断する情報、最後に補助情報の順で並べる
+- 段組、余白、divider、padding は既存 foundations の固定値を優先し、任意の見た目調整を後から足さない
+- card や panel を追加する前に、その block が `状態把握 / 判断 / 実行` のいずれに必要かを説明できること

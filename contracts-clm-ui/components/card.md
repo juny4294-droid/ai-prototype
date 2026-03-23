@@ -43,7 +43,9 @@
 
 ## Shape
 
-- border-radius: 6px
+- border-radius: 12px
+- B2B SaaS の情報カードは、角を立てずに穏やかな角丸を既定とする
+- 角丸を外すのは table、full-bleed panel、viewer frame など構造上の理由がある場合に限る
 
 ---
 

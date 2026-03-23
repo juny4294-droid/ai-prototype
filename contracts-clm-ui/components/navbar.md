@@ -18,6 +18,7 @@
 - 画面ごとの差分を作らない
 - 文言、順序、項目数を勝手に変更しない
 - active 表現は最小限にとどめる
+- product image を参照できる場合は、header の密度をその水準より大きく膨らませない
 
 ---
 
@@ -145,6 +146,7 @@ Left to Right:
 - nav item horizontal padding: `20px`
 - utility item gap: `16px`
 - bell → avatar: `16px`
+- nav group 間 gap や icon hit area を広げすぎず、48px bar の中で compact に収める
 
 ---
 
@@ -340,6 +342,10 @@ Left to Right:
 ---
 
 ## Anti-patterns
+
+- navbar height を 56px 以上へ拡張する
+- nav item の font-size や gap を product baseline より大きくして header 全体を間延びさせる
+- utility button を pill / large icon button にして密度を崩す
 
 - ページごとに nav 項目数が変わる
 - navbar に green primary button を置く

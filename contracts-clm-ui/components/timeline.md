@@ -32,6 +32,8 @@
 - 時系列順を画面単位で統一する
 - 日時、イベント種別、実行者、要約の関係を明確にする
 - 長文イベントでも軸が崩れないようにする
+- step / approval flow variant では `axis lane + stage header row + content lane` を分け、axis marker と本文 card を同じ面に重ねない
+- marker、axis line、stage title、content card の開始位置は共通の layout grid で解決し、負の margin や見た目上の食い込みで合わせない
 
 ## Size
 
@@ -42,6 +44,7 @@
 
 - イベント間の余白で区切りを作る
 - 軸線やアイコンと本文の間隔を一定にする
+- axis marker、stage title、avatar、timestamp、title の最小分離を保ち、相互に重ならない
 
 ## Typography
 
@@ -77,6 +80,7 @@
 - Compact sidebar timeline
 - Grouped-by-date timeline
 - Contract detail activity list
+- Step / approval flow timeline
 
 ## States
 
@@ -105,6 +109,8 @@
 
 - avatar、badge、read more、sidebar、contract detail と組み合わせる
 - thread comments の代替にしない
+- step marker は axis lane に置き、stage title は card の上段見出しとして右側へ分離する
+- badge や marker は overlay variant を定義していない限り card 本体へ侵入させない
 
 ## Contract Detail Activity List Variant
 
@@ -115,6 +121,17 @@
 - item は card 化せず、白地の list と divider で連続表示する
 - actor name は `16px / 700`、timestamp は `14px`、message は `18px / line-height 1.8` を基本とする
 - avatar は `components/avatar.md` の md を基本とする
+- actor row は `avatar + actor text block` を優先し、actor name だけを縦落ちさせない
+- actor name と timestamp / message が狭幅で競合する場合は、name を固定細列にせず、header row 全体を 2 段へ落として読む
+
+## Step / Approval Flow Variant
+
+- 契約書詳細の `承認` や progress 型 `締結` では、この variant を使う
+- 基本構造は `axis lane + stage header row + content block` とし、本文 card は stage title の下で始める
+- 左 lane には axis line と円形 marker だけを置き、`申請` や `承認待ち` などの stage title は本文側の見出しとして表示する
+- stage title と card は同じ content lane に属するが、card を title の直下に落として 2 段で読む
+- dark status card を使う場合でも、stage title を card の上に重ねず、card の前段の独立見出しとして扱う
+- approval waiting card は axis line と marker に対して十分な左 inset を取り、card の角と marker が接触しない
 
 ## Semantic role
 

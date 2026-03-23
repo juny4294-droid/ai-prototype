@@ -31,57 +31,31 @@
 - Overlay
 - Full Modal Container
 - Header
-  - Title
-  - Close action
 - Main Content
 - Footer Actions
 
 ---
 
-## Layout（最重要）
+## Layout
 
-### 構造
-
-Header（固定）
-↓
-Scrollable Content
-↓
-Footer（固定）
-
----
-
-### ルール
-
-- Header / Footer は常に固定
-- Content のみスクロール
-- 背景はスクロールさせない（scroll lock）
+- `Header → Scrollable Content → Footer` の順で構成する
+- `Content` のみスクロールさせる
+- 共通ルールは `foundations/overlay-surface.md` を優先する
 
 ---
 
 ## Size
 
-### 幅
-
 - max-width: 960–1200px（編集系）
-- または full-width（複雑テーブル）
-
----
-
-### 高さ
-
+- または full-width（複雑 table）
 - viewport height の 90–100%
-
----
-
-### 余白
-
-- 左右 padding: 24–32px
-- 上下 padding: 24px
 
 ---
 
 ## Spacing
 
+- 左右 padding: 24–32px
+- 上下 padding: 24px
 - セクション間: 24px
 - セクション内: 16px
 - フォーム要素間: 8px
@@ -90,85 +64,24 @@ Footer（固定）
 
 ## Typography
 
-### Header
-
-- font-size: 18–20px
-- font-weight: 600
+- Header: 18–20px / 600
+- Body: 14px
 
 ---
 
-### Body
-
-- 標準フォームと同一（14px）
-
----
-
-## Color
+## Color usage
 
 - 背景: #FFFFFF
 - Overlay: rgba(0,0,0,0.4)
-- Border: #E5E7EB（subtle）
-
----
-
-## Header（固定仕様）
-
-### 構成
-
-- 左: Title
-- 右: Close（×）
-
----
-
-### ルール
-
-- 常に上部固定
-- スクロールしても消えない
-- Closeは必ず配置
-
----
-
-## Footer（最重要）
-
-### 構成
-
-- 左: 補助アクション（任意）
-- 右: Primary / Secondary actions
-
----
-
-### ボタン構成
-
-- Primary: 1つのみ
-- Secondary: cancel / close
-
----
-
-### 固定
-
-- 常に画面下部に固定
-- スクロールしても見える
+- Border: #E5E7EB
 
 ---
 
 ## Variants
 
-### Standard Form
-
-- 縦長フォーム
-
----
-
-### Review
-
-- 読み取り + 確認
-
----
-
-### Split Layout
-
-- 左: navigation / list
-- 右: detail / form
+- Standard Form
+- Review
+- Split Layout
 
 ---
 
@@ -176,101 +89,52 @@ Footer（固定）
 
 - open
 - loading
-- dirty（未保存）
+- dirty
 - submitting
 - error
 
 ---
 
-## Interaction Rules（重要）
+## Interaction rules
 
 - 未保存状態で閉じる → 確認Dialog必須
-- primary actionは1つ
-- Escキーで閉じる（ただしdirty時は確認）
-- 背景クリックでは閉じない（誤操作防止）
+- primary action は 1 つ
+- 背景クリックでは閉じない
 
 ---
 
-## Scroll Behavior（重要）
+## Keyboard interactions
 
-- Bodyのみscroll
-- Header / Footer固定
-- 二重スクロール禁止
-
----
-
-## Keyboard Interaction
-
-- Tab: modal内循環（focus trap）
+- Tab: modal 内循環
 - Esc: close（条件付き）
 - Enter: primary action（フォーム時）
 
 ---
 
-## Accessibility
+## ARIA requirements
 
-- role="dialog"
-- aria-modal="true"
-- aria-labelledby（title紐付け）
 - フォーカストラップ必須
 
 ---
 
-## ARIA
+## Responsive behavior
 
-- aria-describedby（説明がある場合）
-- 初期フォーカスはtitle or first field
-
----
-
-## Responsive
-
-### Tablet
-
-- width: 90%
+- tablet: width 90%
+- mobile: フルスクリーン、footer 固定維持
 
 ---
 
-### Mobile
-
-- フルスクリーン
-- Footer固定維持
-
----
-
-## Composition Rules
+## Composition rules
 
 - Form / Table / Sidebar を内包可能
-- Dialogの代替として使わない
+- Dialog の代替として使わない
 - ページ遷移の代替として乱用しない
 
 ---
 
-## Anti-patterns（重要）
+## Anti-patterns
 
-- Header / Footerがスクロールで消える
-- Primaryが複数ある
+- Header / Footer がスクロールで消える
 - 背景スクロールが動く
-- 長文でFooterが見えない
-- Dialogで済む内容を使う
+- Dialog で済む内容を使う
 - ページの代替として無制限に使う
-
----
-
-## Visual Constraint
-
-- フラットUI
-- 過剰な影・ガラス・3D禁止
-
----
-
-## Example structure
-
-Full Modal  
-├─ Header（fixed）  
-│  ├─ Title  
-│  └─ Close  
-├─ Scrollable Content  
-└─ Footer（fixed）  
-   ├─ Secondary  
-   └─ Primary  
