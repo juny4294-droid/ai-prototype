@@ -2,8 +2,8 @@
 
 - Status: refined
 - Source: documented ContractS contract detail baseline
-- Tab content baseline: `samples/tab-content.pdf`
-- Shell order baseline: `samples/product-image_contract-detail.png`
+- Tab content baseline: `baselines/tab-content.pdf`
+- Shell order baseline: `baselines/product-image_contract-detail.png`
 
 ## Purpose
 
@@ -21,9 +21,9 @@
 - 右 panel の機能追加があっても、header、viewer、rail などの固定領域は維持する
 - sample / prototype では PDF 本文、契約名、ファイル名、担当者名を実在データ風にせず、常にダミー値で統一する
 - 指示がない限り、詳細画面のタブ数と順番は既存状態をそのまま維持し、追加・削除・並び替えを行わない
-- `samples/tab-content.pdf` に tab content baseline がある場合、tab title、section order、action placement、state transition はその baseline を優先する
+- `baselines/tab-content.pdf` に tab content baseline がある場合、tab title、section order、action placement、state transition はその baseline を優先する
 - tab content baseline がある tab では、明示指示なしに state を削ったり、別の情報構造へ置き換えない
-- right rail と詳細 tab の既存順は `samples/product-image_contract-detail.png` を正本とし、特に指示がない限りその順番を維持する
+- right rail と詳細 tab の既存順は `baselines/product-image_contract-detail.png` を正本とし、特に指示がない限りその順番を維持する
 
 ### Fixed Areas（変更禁止に近い扱い）
 
@@ -166,7 +166,7 @@ Related Components:
 - rail の左側には draggable resize gutter を固定で置く
 - resize gutter を rail item や active indicator の一部に見せない
 - 指示がない限り、right section rail の項目数と順番は既存状態をそのまま維持する
-- right section rail の既存順は `samples/product-image_contract-detail.png` を正本とする
+- right section rail の既存順は `baselines/product-image_contract-detail.png` を正本とする
 
 ---
 

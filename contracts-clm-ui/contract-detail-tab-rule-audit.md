@@ -1,7 +1,7 @@
 # Contract Detail Tab Rule Audit
 
 Source baseline:
-- `samples/tab-content.pdf`
+- `baselines/tab-content.pdf`
 - `patterns/contract-detail.md`
 
 ## Purpose
@@ -14,7 +14,7 @@ Claude が高精度で再現できる rule へ落とす。
 
 ## 共通で追加すべき基準
 
-- `samples/tab-content.pdf` を契約書詳細の right panel tab content baseline として扱う
+- `baselines/tab-content.pdf` を契約書詳細の right panel tab content baseline として扱う
 - 明示指示がない限り、tab ごとの `title / section order / primary action placement / state transition` は baseline を維持する
 - right panel は `タイトル → 説明または状態説明 → 必要な section` の読順を維持する
 - empty / create / detail / progress のような state が PDF に存在する tab は、状態数を勝手に減らさない
