@@ -1,2 +1,3 @@
-contracts-clm-ui/samples/*
-!contracts-clm-ui/samples/.gitkeep
+# プロトタイプ出力フォルダ — 中身は管理対象外、フォルダ自体は維持
+samples/*
+!samples/.gitkeep
