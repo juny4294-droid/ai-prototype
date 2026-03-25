@@ -2,7 +2,7 @@
 
 - Status: refined
 - Source: documented ContractS contract detail baseline
-- Tab content baseline: `baselines/tab-content.pdf`
+- Tab content baseline: `patterns/tab-content.md`
 
 ## Purpose
 
@@ -20,7 +20,7 @@
 - 右 panel の機能追加があっても、header、viewer、rail などの固定領域は維持する
 - sample / prototype では PDF 本文、契約名、ファイル名、担当者名を実在データ風にせず、常にダミー値で統一する
 - 指示がない限り、詳細画面のタブ数と順番は既存状態をそのまま維持し、追加・削除・並び替えを行わない
-- `baselines/tab-content.pdf` に tab content baseline がある場合、tab title、section order、action placement、state transition はその baseline を優先する
+- `patterns/tab-content.md` に tab content baseline がある場合、tab title、section order、action placement、state transition はその baseline を優先する
 - tab content baseline がある tab では、明示指示なしに state を削ったり、別の情報構造へ置き換えない
 - right rail と詳細 tab の既存順は `components/section-rail.md` の fixed items を正本とし、特に指示がない限りその順番を維持する
 
