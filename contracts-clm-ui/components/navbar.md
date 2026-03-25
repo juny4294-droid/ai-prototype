@@ -56,8 +56,10 @@
 ### Primary Navigation
 
 1. `ホーム`
-2. `契約管理`
-3. `案件管理`
+2. `チャネル`
+3. `プロジェクト`
+4. `契約管理`
+5. `案件管理`
 
 ### Utility Area
 
@@ -78,13 +80,15 @@ Left to Right:
 3. Caret
 4. Divider
 5. ホーム
-6. 契約管理
-7. 案件管理
-8. Help
-9. Search
-10. Account
-11. Notification
-12. User Avatar
+6. チャネル
+7. プロジェクト
+8. 契約管理
+9. 案件管理
+10. Help
+11. Search
+12. Account
+13. Notification
+14. User Avatar
 
 ---
 
@@ -174,7 +178,7 @@ Left to Right:
 ## Content Guidelines
 
 - 会社名は `【社内】ContractS株式会社` を固定とする
-- 主ナビ文言は `ホーム` `契約管理` `案件管理` の 3 つで固定する
+- 主ナビ文言は `ホーム` `チャネル` `プロジェクト` `契約管理` `案件管理` の 5 つで固定する
 - utility にテキストラベルを足さない
 - 文言の短縮や言い換えを行わない
 
@@ -254,9 +258,9 @@ Left to Right:
 
 ## Navigation Rules
 
-- 主ナビ項目数は固定 3 項目
-- 項目追加をしない
-- `ホーム` `契約管理` `案件管理` は常に表示する
+- 主ナビ項目数は固定 5 項目
+- 項目の追加・削除・並び替えをしない
+- `ホーム` `チャネル` `プロジェクト` `契約管理` `案件管理` は常に表示する
 - active は 1 項目のみ
 - 画面タイトルで現在地を補完しても、navbar 自体は変えない
 
@@ -366,6 +370,8 @@ Navbar
 ├─ Divider
 ├─ Primary Navigation
 │  ├─ ホーム
+│  ├─ チャネル
+│  ├─ プロジェクト
 │  ├─ 契約管理
 │  └─ 案件管理
 └─ Utility Area

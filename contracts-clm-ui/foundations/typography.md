@@ -8,7 +8,8 @@
 
 ## Token Mapping
 
-- title: 20 / bold / line-height 28
+- page-title: 24 / bold / line-height 32（ページ最上位の見出し、一覧・詳細ページのタイトル）
+- title: 20 / bold / line-height 28（セクション・カード見出し）
 - body: 14 / regular / line-height 20
 - caption: 12 / regular / line-height 16
 - xs: 10 / regular / line-height 14
@@ -26,7 +27,8 @@
 
 ## Concrete Rules
 
-- title: ページ見出しのみ
+- page-title: ページ最上位の見出しのみ（各画面に1つ）
+- title: セクション・カードの見出し
 - section title: bodyより強い
 - caption: 補助情報
 - label: 値より弱く、補助情報よりは強く

@@ -53,13 +53,7 @@
 
 ### Contract Detail Right Tab Variant（例外）
 
-- 契約書詳細の右タブは `components/section-rail.md` を優先する
-- この variant では右側配置を許可する
-- default side menu の幅広 label list ではなく、narrow rail を使う
-- `icon 上 / label 下` の 2 段構成を使う
-- active 表現は full-cell 背景反転を優先し、左インジケーター線は使わない
-- dot / count badge は item の右上へ重ねてよい
-- collapse control は最下部の utility item として分離する
+- 契約書詳細の右タブは `components/section-rail.md` を正本とする（レイアウト・サイズ・状態の仕様はすべてそちらを参照）
 
 ---
 

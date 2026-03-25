@@ -32,7 +32,8 @@
 
 ## Concrete Rules
 
-- 一覧: Left Filter Sidebar → Main Header → Table → Pagination
+- 一覧（少数フィルタ: 1〜5項目）: Main Header → Inline Filter Row → Table → Pagination
+- 一覧（多数フィルタ: 6項目以上 または section 分け必要）: Left Filter Sidebar | Main Header → Table → Pagination
 - 詳細: Navigation → Content → Support
 - 設定: Sidebar → Content
 - 一覧の補助詳細: Right Sidebar
@@ -50,14 +51,6 @@
 - support を閉じても main task の理解が成立するか
 - 補助領域が main より強く見えていないか
 - 「要約したい欲求」で card を増やしていないか
-
----
-
-## Component Application
-
-- sidebarは補助
-- commentsはsupport
-- 契約詳細の右 rail は support とし、main form を複製しない
 
 ---
 

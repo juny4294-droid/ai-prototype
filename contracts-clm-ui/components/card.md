@@ -21,6 +21,7 @@
 
 - 単純なリスト（→ Table）
 - 1行情報（→ List row）
+- main content の block surface 表現が必要なだけで、情報単位としての card 境界を増やす必要がない場合は `Card` を増やさず page / section の surface 表現で処理する
 
 ---
 
@@ -182,6 +183,8 @@
 
 - page layoutの基本単位
 - form / table wrapperとして使用
+- ただし main content 内では、card component を明示的に増やさなくても、section / table wrapper / summary block に card 同等の surface 表現を使ってよい
+- global header、side menu、filter sidebar、rail は card と同じ角丸 block に寄せない
 
 ---
 
@@ -204,6 +207,7 @@
 - shadow多用
 - card入れ子多層化
 - 全要素カード化
+- header、sidebar、navigation まで同じ card surface にして shell の階層を失う
 - padding不足
 
 ---

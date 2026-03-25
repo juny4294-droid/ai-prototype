@@ -8,9 +8,14 @@
 
 ## Required Files
 
+すべてのプロトタイプは以下の構成で保存する:
 - `samples/<prototype-name>/index.html`
 - `samples/<prototype-name>/styles.css`
 - `samples/<prototype-name>/app.js`
+
+- `<prototype-name>` はケバブケース（例: `task-list`、`contract-detail`）
+- `samples/` ディレクトリが存在しない場合は作成する
+- HTML / CSS / JS は必ずファイルを分割し、単一ファイルにまとめない
 
 ---
 
@@ -20,6 +25,7 @@
 - 主要表示切替が最低 1 つ動作する
 - 主要 state が最低 3 種以上確認できる
 - 使用した既存 component または pattern を説明可能にする
+- 検証用 controls や sample 用注記は、明示的な指示がある場合にのみ置く
 - 検証用 controls や sample 用注記を置く場合も、主要コンテンツの視覚階層を壊さない
 - panel や section では `タイトル → 説明 → 必要なアイテム` の基本順序が視覚的に成立している
 - 既存 sample がある画面では、余白、操作サイズ、tree / list の整列が既存品質を下回らない
@@ -41,7 +47,9 @@
 
 - 静的 HTML だけ置いて操作がない
 - state 差分が 1 つも確認できない
-- sample 直下にファイルを直置きする
+- `samples/` ディレクトリを作らずルート直下にファイルを置く
+- HTML / CSS / JS を1ファイルに混在させる
+- 指示がないのに `Sample state`、debug bar、状態切替 chip を本画面に常設表示する
 - sample 用の説明文や state 切替 UI が、実際の panel 本文や主要 list より目立つ
 - タイトル、説明、必要なアイテムが横並びや極端な狭幅で崩れ、縦方向の読順が壊れる
 - action や utility icon の余白が既存 baseline より大きく、tree / list / card の密度を壊す

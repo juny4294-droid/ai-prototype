@@ -41,9 +41,17 @@ B2B SaaS として十分に安定した UI 品質を維持する。
 - panel、card、tree、list は読めない幅まで縮めない
 - title、description、actions、content は横方向で競合させず、狭幅でも読順が維持できるようにする
 - 1文字ずつ縦落ちする崩れ方や、不自然な右余白だけが残る痩せた content 幅を許容しない
+- contextual drawer / sidebar を閉じた状態で、将来表示用の空カラムや空面を残さない
+- contextual drawer / sidebar は open 時も main list / table の可読幅を壊さず、必要以上の縮小や右側の死に余白を作らない
+- right drawer / contextual sidebar の詳細情報は、面幅を前提に横分割せず、縦方向の読み順を優先する
 - avatar 付き account row では、name だけが細い列に押し込まれて縦落ちする崩れ方を許容しない
 - 既存 sample や既存画面がある場合、まずその padding、action size、block 幅、align を baseline とする
 - support area や panel header では、title / description / items の領域を犠牲にして右側に大きな空白を作らない
+- page header と main list / table / form の間は、意味のある最小間隔で連続させ、余剰高さによる下寄せや中央寄せを許容しない
+- 主カラムの余白は content block の下側へ逃がすことを基本とし、header と本文の間に大きな空白を発生させない
+- main content 内の独立 block surface は、厳密な card component でなくても `白背景 + 穏やかな角丸 + ごく薄い影` を基調としてよい
+- 上記の block surface 表現は main content に限って適用し、global header、side menu、filter sidebar、rail には自動適用しない
+- filter sidebar は shell の一部として page edge に接続し、左端や上下に外側余白を作らない
 - 既存 baseline がある tree / list / card は、左端、connector、action placement の位置関係を理由なく変えない
 - 既存 baseline が `row + divider` の領域では、box-shadow つき card へ置き換えない
 
@@ -63,6 +71,7 @@ B2B SaaS として十分に安定した UI 品質を維持する。
 - utility icon や tree action の hit area を必要以上に大きくせず、既存 component の密度を無断で緩めない
 - tree / list / card では左端基準、connector、action placement を揃える
 - panel header の action は補助操作として扱い、title / description より広い占有領域を持たせない
+- right drawer の summary / meta は 2 column の一覧化より、`label → value → supporting text` の縦反復を優先する
 - 既存 sample に compact な action size がある場合、まずその寸法を baseline とし、大きくする場合は明確な理由を持つ
 - 同じ画面内で `row / accordion / timeline / list` が baseline なのに、理由なく card 化しない
 - rail icon、rail label、required chip、count badge は補助情報として扱い、title や primary action より強く見せない
@@ -121,12 +130,16 @@ B2B SaaS として十分に安定した UI 品質を維持する。
 - support area の panel は「本文より細い補助カラム」ではなく、「内容が成立する最小幅を持つ補助面」として扱う
 - support area で tree や list を使う場合、item 本体より action 群や debug UI が先に目に入る密度を避ける
 - support area の timeline / approval block では、axis line と marker の lane 幅、および stage title と card が成立する content 幅を先に確保する
+- 一覧画面の contextual drawer は support area の常設カラムとして扱わず、必要時だけ現れる overlay surface として扱う
 
 ---
 
 ## Visual Stability
 
 - neutral background + subtle border + restrained shadow を基本とする
+- main content の白面 block では、角丸と薄い shadow を使って page background から穏やかに分離してよい
+- header、sidebar、rail、navigation strip は block surface と同じ角丸面にせず、shell の一部としてフラットに扱う
+- filter sidebar は flat な shell surface として扱い、main content block と同じ card chrome を与えない
 - gradient、強い色面、装飾 shape で完成度を稼がない
 - 日本語UIでは英字 kicker を自動追加しない
 - 角丸、border、focus ring は page ごとに変えない

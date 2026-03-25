@@ -83,7 +83,7 @@
 
 ### Inline Filter Row Rules
 
-- filter が `1〜3項目` の軽量構成なら title / description の直下に横一列で置く
+- filter が `1〜5項目` の軽量構成なら title / description の直下に横一列で置く
 - inline filter row は table と同じ surface 内で扱う
 - filter row を独立した card や toolbar に分離しない
 - label + dropdown / input のセットを左から順に並べる
@@ -96,11 +96,11 @@
 
 ### Filter Placement Rules
 
-- filter が `4項目以上` の場合は左カラムに分離する
+- filter が `6項目以上` の場合は左カラムに分離する
 - checkbox 群、階層条件、複数セクションに分かれる場合は左カラムを使う
 - 詳細 filter はページ左に接続した sidebar / panel として配置し、table area と横並びにする
 - 詳細 filter を独立した浮遊 card のように中央や上部へ持ち上げない
-- filter が `1〜3項目` の軽量構成なら table header 上部に input / select を置く
+- filter が `1〜5項目` の軽量構成なら table header 上部に input / select を置く
 - 条件が多いのに table 上部へ横並びで詰め込まない
 - left sidebar 方式では、ページ下部の toggle button で filter panel を閉じられるようにする
 - 閉じた後は細い rail として残し、同じ位置から再度開けるようにする

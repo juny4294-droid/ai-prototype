@@ -21,7 +21,7 @@
 ## When not to use（重要）
 
 - 主作業の中心（→ Main Content）
-- ナビゲーション（→ Side Menu）
+- ナビゲーション（→ Navbar）
 - 大規模編集（→ Full Modal）
 
 ---
@@ -49,7 +49,8 @@
 - 右側配置を基本
 - row click などのトリガーで開く
 - 右から slide-in で表示する
-- overlayまたはpushで表示
+- 一覧画面の contextual sidebar は overlay を基本とする
+- 一覧画面で main content を押し縮める push layout は原則使わない
 
 ---
 
@@ -72,6 +73,9 @@
 - 行選択・操作起点
 - 右から slide-in する drawer 形式を基本とする
 - 契約一覧の row detail はこの形式を使う
+- closed 時は DOM 上に存在していても、main content のレイアウト幅を占有しない
+- open 時は一覧や main content の上に重ねて表示し、一覧幅や table 可読幅を維持する
+- right drawer に表示する詳細情報は、情報量が増えても横方向に列を増やさず、上から下への 1 column flow を維持する
 - section 構成は `patterns/contract-detail.md` の right support rail を簡略化して踏襲する
 - 複数の情報ブロックを出す場合、top-level は横並びにせず縦一列で積む
 - 2枚以上の card を 2 column に分割しない
@@ -82,6 +86,8 @@
 
 - mainの上に重ねる
 - 背景クリックで閉じる（任意）
+- overlay は一覧の読取を邪魔しない最小範囲に留め、不要に page 全体を再段組しない
+- overlay 表示中も、背後の一覧に不自然な余白や空カラムを残さない
 
 ---
 
@@ -192,7 +198,9 @@
 - workflow、log、comments は独立 section に分ける
 - 複数 section / card は top から bottom へ縦一列で配置する
 - drawer 内で summary card、meta card、workflow card を横に並べない
-- 1 column stack を基本とし、内部の label / value だけ必要に応じて 2列化してよい
+- right drawer は常に 1 column stack を基本とし、内部の label / value も原則として縦積みで配置する
+- 期限と担当者のような並列しやすい情報でも、right drawer では 2 column summary にせず `label → value → supporting text` を縦に反復する
+- 詳細情報が増えたときは横に増やすのではなく、section 分割または縦積みの項目追加で処理する
 - full detail page では card stack ではなく、`section-rail.md` と組み合わせた単一 panel を置く
 - full detail page の fixed rail と resize gutter は `section-rail.md` を参照する
 - full detail page の panel shell は本ファイルを正本とし、`patterns/contract-detail.md` では再定義しない
@@ -220,6 +228,7 @@
 ### Content Rules
 
 - 契約概要は label / value で表示
+- right drawer の label / value 群は、2列 grid より縦方向の definition list に近い読み順を優先する
 - file list は compact card / list
 - log は avatar + actor + timestamp + event message の activity list を基本とする
 - comments は thread comments + input area を基本とする
@@ -234,6 +243,12 @@
 - loading
 - empty
 
+### Closed State Rules
+
+- closed 時は sidebar の面、border、shadow を見せない
+- closed 時の placeholder column や空 panel を残さない
+- 一覧画面では `未選択時の常設右カラム` を作らず、選択前は一覧本体を最大幅で使う
+
 ---
 
 ## Interaction Rules（重要）
@@ -242,6 +257,9 @@
 - close操作は常に明確
 - context（選択対象）を失わない
 - 一覧画面では常時表示せず、行クリック時のみ表示する
+- 行選択前に右側の空面を予約しない
+- open / closed の切替で main table の left edge、column 幅、header の整列を不必要に揺らさない
+- right drawer 内で詳細を見せるために、情報 block を multi-column 化しない
 
 ---
 
@@ -313,22 +331,30 @@
 ## Composition Rules
 
 - Table / Detail / Timelineと組み合わせる
-- Side Menuと併用可能（左右分離）
+- Left Filter Sidebar（パターン B）と右側 Contextual Sidebar は左右に共存できる
 - Modalとは同時表示しない
 
 ---
 
-## Sidebar / Side Menu / Modalの境界（重要）
+## Sidebar / Left Filter Sidebar / Modalの境界（重要）
 
-### Sidebar
+### Contextual Sidebar（本コンポーネント）
 
-- 補助情報
+- 補助情報・行詳細・支援操作（トリガーで開閉）
 
 ---
 
-### Side Menu
+### Left Filter Sidebar
 
-- ナビゲーション
+- 検索条件の絞り込み専用（一覧画面のパターン B のみ）
+- ナビゲーションとして使わない
+
+---
+
+### Navbar
+
+- プロダクト全体のナビゲーション（最上部固定、全画面共通）
+- Sidebar の代替として使わない
 
 ---
 

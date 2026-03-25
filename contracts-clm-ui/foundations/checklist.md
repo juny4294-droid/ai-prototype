@@ -39,6 +39,14 @@ self-review / self-repair ループとして使う。
 - 一覧、form、detail、sidebar が page 内で別レイアウト言語になっていないか
 - title、description、actions、content が横方向で競合していないか
 - 不自然な右余白だけが残り、card や tree が痩せて見えていないか
+- page header と main table / list の間に、意味を説明できない大きな縦空白がないか
+- 主カラムの一覧 block が上詰めで始まり、下寄せや中央寄せになっていないか
+- contextual drawer を閉じた状態で、空の右カラムや空 panel が残っていないか
+- contextual drawer を開いた状態でも、一覧の table 幅や pagination の整列が崩れていないか
+- right drawer 内の詳細情報が 2 column 化されず、上から下への 1 column flow を維持しているか
+- main content 内の独立 block が page background から適度に分離されているか
+- header、sidebar、rail まで同じ角丸 shadow surface にしていないか
+- filter sidebar が左端と上下に接続され、card のように浮いていないか
 - 狭幅時に 1文字ずつ縦落ちする崩れ方が起きていないか
 - support area や panel header で、action のために本文領域が細くなっていないか
 - 既存 baseline がある画面で、panel 幅や body padding が baseline 未満に落ちていないか

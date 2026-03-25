@@ -93,7 +93,7 @@
 - support area や panel header では、右側だけに大きな死に余白を残したまま title / description / items を痩せさせない
 - icon button、tree action、utility action は既存 baseline より大きい余白や hit area に膨らませず、compact な密度を維持する
 - tree / list / card の左端、connector、action placement は既存 baseline と同系統の位置関係を保ち、理由なく別配置へ崩さない
-- 契約書詳細の right rail / tab 順序は、特に指示がない限り `baselines/product-image_contract-detail.png` の既存順を維持する
+- 契約書詳細の right rail / tab 順序は、特に指示がない限り `components/section-rail.md` の固定順を維持する
 - screenshot baseline を使う場合は、契約書名や担当者名などのモック文言ではなく `色 / 形 / サイズ / 余白 / 配置` だけを参照する
 - 契約書詳細では `viewer が主 / rail が細 / panel が狭く密度高め` の比率を崩さない
 - 契約書詳細の panel header は原則 compact に保ち、画像基準にない説明文を自動追加しない
