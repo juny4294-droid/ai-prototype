@@ -9,13 +9,12 @@
 ## Required Files
 
 すべてのプロトタイプは以下の構成で保存する:
-- `samples/<prototype-name>/index.html`
-- `samples/<prototype-name>/styles.css`
-- `samples/<prototype-name>/app.js`
+- `samples/<prototype-name>/<descriptive-name>.html`
 
 - `<prototype-name>` はケバブケース（例: `task-list`、`contract-detail`）
+- `<descriptive-name>` はファイルの内容が分かるケバブケース（例: `task-list.html`、`contract-detail.html`）。`index.html` は使わない
 - `samples/` ディレクトリが存在しない場合は作成する
-- HTML / CSS / JS は必ずファイルを分割し、単一ファイルにまとめない
+- HTML / CSS / JS は1ファイルに統合する。ただし `<style>` と `<script>` は分離して記述し、混在させない
 
 ---
 
@@ -48,7 +47,8 @@
 - 静的 HTML だけ置いて操作がない
 - state 差分が 1 つも確認できない
 - `samples/` ディレクトリを作らずルート直下にファイルを置く
-- HTML / CSS / JS を1ファイルに混在させる
+- ファイル名を `index.html` にする
+- `<style>` と `<script>` を HTML 本文に直接混在させ、構造が追えない状態にする
 - 指示がないのに `Sample state`、debug bar、状態切替 chip を本画面に常設表示する
 - sample 用の説明文や state 切替 UI が、実際の panel 本文や主要 list より目立つ
 - タイトル、説明、必要なアイテムが横並びや極端な狭幅で崩れ、縦方向の読順が壊れる
