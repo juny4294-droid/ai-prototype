@@ -133,6 +133,14 @@
 - hover中は仮選択を表示
 - start → endの方向を明確に
 
+### Layout（幅に応じたレイアウト）
+
+- **通常幅**（filter bar など）: start input `〜` end input を1行横並びで表示
+- **狭幅**（left filter sidebar など）: start input と end input を縦2段に積み、`〜` は2段の間または省略して label で代替する
+  - 縦積みの場合、上段 = 開始日、下段 = 終了日の順を固定する
+  - input 幅はコンテナ全幅に合わせて広げてよい
+- 横並びか縦積みかの切り替え基準: コンテナ幅が input 2本 + `〜` を収められない場合は縦積みを選ぶ
+
 ---
 
 ## Interaction Rules
@@ -194,8 +202,9 @@
 
 ## Composition Rules
 
-- form / filter bar
-- modal
+- form / filter bar: 横並びレイアウトを基本とする
+- left filter sidebar: 狭幅のため縦積みレイアウトを使う
+- modal: コンテナ幅に応じて横並び / 縦積みを選ぶ
 
 ---
 
