@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ContractS CLM — ホーム（未対応優先）</title>
+    <title>ContractS CLM — ホーム（ウィジェットダッシュボード）</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,6 +34,8 @@
         --warning-bg: #fff9e0;
         --radius: 6px;
         --shadow-card: 0 1px 2px rgba(20, 29, 61, 0.06);
+        --modal-backdrop: rgba(20, 29, 61, 0.45);
+        --widget-content-height: 300px;
       }
 
       * {
@@ -59,7 +61,6 @@
         line-height: 1;
       }
 
-      /* Navbar — components/navbar.md */
       .navbar {
         display: flex;
         align-items: center;
@@ -68,7 +69,6 @@
         background: var(--nav-bg);
         color: var(--text-inverse);
         flex-shrink: 0;
-        gap: 0;
       }
 
       .navbar__product {
@@ -171,8 +171,8 @@
 
       .page {
         flex: 1;
-        padding: 24px 28px 80px;
-        max-width: 1200px;
+        padding: 24px 28px 88px;
+        max-width: 1400px;
         width: 100%;
         margin: 0 auto;
       }
@@ -197,6 +197,14 @@
         margin: 0;
         font-size: 13px;
         color: var(--text-section);
+        max-width: 520px;
+      }
+
+      .page-header__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
       }
 
       .btn-primary {
@@ -204,7 +212,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        padding: 10px 20px;
+        padding: 10px 18px;
         font-size: 14px;
         font-weight: 700;
         font-family: inherit;
@@ -231,100 +239,333 @@
         box-shadow: none;
       }
 
-      .summary {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 20px;
-      }
-
-      .summary__item {
-        display: flex;
-        align-items: baseline;
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
         gap: 8px;
-        padding: 10px 14px;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: inherit;
+        color: var(--text-strong);
         background: #fff;
         border: 1px solid var(--border-input);
         border-radius: var(--radius);
-        box-shadow: var(--shadow-card);
         cursor: pointer;
-        font: inherit;
-        color: inherit;
-        text-align: left;
       }
 
-      .summary__item:hover {
+      .btn-secondary:hover:not(:disabled) {
         border-color: var(--brand-primary);
+        color: var(--brand-dark);
       }
 
-      .summary__item:focus-visible {
-        outline: 2px solid var(--brand-primary);
-        outline-offset: 1px;
+      .btn-secondary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
       }
 
-      .summary__label {
-        font-size: 12px;
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .dashboard__empty {
+        padding: 48px 24px;
+        text-align: center;
+        background: #fff;
+        border: 1px dashed var(--border-input);
+        border-radius: 8px;
         color: var(--text-section);
+        font-size: 14px;
       }
 
-      .summary__value {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text-strong);
+      .dashboard__empty button {
+        margin-top: 12px;
       }
 
-      .summary__value--danger {
-        color: var(--danger);
-      }
-
-      .layout {
-        display: grid;
-        grid-template-columns: 1fr 220px;
-        gap: 24px;
-        align-items: start;
-      }
-
-      @media (max-width: 900px) {
-        .layout {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .panel {
+      .widget {
         background: #fff;
         border: 1px solid var(--border-input);
         border-radius: 8px;
         box-shadow: var(--shadow-card);
         overflow: hidden;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
       }
 
-      .panel__head {
-        padding: 14px 16px;
+      .widget--span-full {
+        grid-column: 1 / -1;
+      }
+
+      .widget__head {
+        padding: 12px 16px;
         border-bottom: 1px solid var(--border-input);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
+        gap: 8px;
+        flex-shrink: 0;
+        min-height: 48px;
+        box-sizing: border-box;
       }
 
-      .panel__head h2 {
+      .widget__head h2 {
         margin: 0;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-strong);
+      }
+
+      .widget__head span {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .widget__body {
+        padding: 0;
+      }
+
+      .widget__body-outer {
+        flex: 1 1 auto;
+        min-height: var(--widget-content-height);
+        height: var(--widget-content-height);
+        max-height: var(--widget-content-height);
+        overflow-x: auto;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+      }
+
+      .widget__body-outer::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .widget__body-outer::-webkit-scrollbar-thumb {
+        background: var(--border-input);
+        border-radius: 3px;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      /* 1画面に横並びで2ウィジェット（各6/12カラム） */
+      .dashboard-grid > .widget {
+        grid-column: span 6;
+      }
+
+      @media (max-width: 960px) {
+        .dashboard-grid > .widget {
+          grid-column: 1 / -1;
+        }
+
+        :root {
+          --widget-content-height: min(300px, 48vh);
+        }
+      }
+
+      .create-widget-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 14px;
+      }
+
+      /* ウィジェット幅が半分のときは新規作成ブロックを縦積み */
+      @media (max-width: 1200px) {
+        .create-widget-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .create-section__title {
+        margin: 0 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-section);
+        letter-spacing: 0.02em;
+      }
+
+      .create-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .create-action-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--border-input);
+        background: #fff;
+        border-radius: var(--radius);
+        cursor: pointer;
+        text-align: left;
+        font: inherit;
+        color: var(--text-strong);
+        transition: border-color 0.12s ease, background 0.12s ease;
+      }
+
+      .create-action-btn .material-symbols-rounded {
+        color: var(--brand-dark);
+        font-size: 22px;
+      }
+
+      .create-action-btn:hover:not(:disabled) {
+        border-color: var(--brand-primary);
+        background: #f1fafb;
+      }
+
+      .create-action-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .create-action-btn__text strong {
+        display: block;
+        font-size: 13px;
         font-weight: 700;
       }
 
-      .panel__head p {
-        margin: 4px 0 0;
+      .create-action-btn__text span {
+        display: block;
+        font-size: 11px;
+        color: var(--text-section);
+        margin-top: 2px;
+      }
+
+      .template-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .template-list li {
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .template-list li:last-child {
+        border-bottom: none;
+      }
+
+      .template-list button {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 4px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        color: inherit;
+        border-radius: 4px;
+      }
+
+      .template-list button:hover:not(:disabled) {
+        background: var(--page-bg);
+      }
+
+      .template-list button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .template-list__name {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-strong);
+      }
+
+      .template-list__meta {
+        font-size: 11px;
+        color: var(--text-section);
+        margin-top: 2px;
+      }
+
+      .template-list__kind {
+        flex-shrink: 0;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--brand-dark);
+        background: #dff3f1;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+
+      .drafts-table-wrap {
+        overflow-x: auto;
+      }
+
+      .drafts-table-wrap table {
+        font-size: 12px;
+      }
+
+      .drafts-table-wrap th,
+      .drafts-table-wrap td {
+        padding: 8px 14px;
+      }
+
+      .kpi-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .kpi-tile {
+        flex: 1 1 140px;
+        min-width: 120px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid var(--border-input);
+        border-radius: var(--radius);
+        cursor: pointer;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        background: var(--table-header);
+      }
+
+      .kpi-tile:hover:not(:disabled) {
+        border-color: var(--brand-primary);
+      }
+
+      .kpi-tile:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .kpi-tile__label {
         font-size: 12px;
         color: var(--text-section);
       }
 
+      .kpi-tile__value {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .kpi-tile__value--danger {
+        color: var(--danger);
+      }
+
       .filter-row {
+        padding: 0 16px 12px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        align-items: center;
       }
 
       .filter-chip {
@@ -420,46 +661,67 @@
         color: var(--text-section);
       }
 
-      .support {
+      .shortcuts-body {
+        padding: 12px 16px 16px;
         font-size: 12px;
       }
 
-      .support h3 {
-        margin: 0 0 8px;
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--text-section);
-      }
-
-      .support ul {
+      .shortcuts-body ul {
         margin: 0;
         padding: 0;
         list-style: none;
       }
 
-      .support li {
-        margin-bottom: 6px;
+      .shortcuts-body li {
+        margin-bottom: 8px;
       }
 
-      .support a {
+      .shortcuts-body a {
         color: var(--brand-primary);
         text-decoration: none;
         font-weight: 500;
       }
 
-      .support a:hover {
+      .shortcuts-body a:hover {
         text-decoration: underline;
       }
 
-      .support p {
+      .shortcuts-body p {
         margin: 12px 0 0;
         color: var(--text-muted);
         line-height: 1.5;
+        font-size: 11px;
+      }
+
+      .news-body {
+        padding: 12px 16px 16px;
+        font-size: 13px;
+      }
+
+      .news-item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .news-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .news-item__date {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+      }
+
+      .news-item__title {
+        font-weight: 500;
+        color: var(--text-strong);
       }
 
       .empty-block,
       .error-block {
-        padding: 40px 24px;
+        padding: 32px 20px;
         text-align: center;
       }
 
@@ -509,6 +771,163 @@
         100% {
           background-position: -100% 0;
         }
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: var(--modal-backdrop);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+      }
+
+      .modal-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 12px 40px rgba(20, 29, 61, 0.18);
+        width: 100%;
+        max-width: 480px;
+        max-height: min(88vh, 640px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .modal__head {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-input);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .modal__head h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .modal__head p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        color: var(--text-section);
+        line-height: 1.45;
+      }
+
+      .modal__close {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: transparent;
+        border-radius: var(--radius);
+        cursor: pointer;
+        color: var(--text-section);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal__close:hover {
+        background: var(--page-bg);
+        color: var(--text-strong);
+      }
+
+      .modal__body {
+        padding: 16px 20px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .modal__foot {
+        padding: 12px 20px 16px;
+        border-top: 1px solid var(--border-input);
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .widget-picker__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .widget-picker__item:last-child {
+        border-bottom: none;
+      }
+
+      .widget-picker__item input {
+        margin-top: 3px;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--brand-primary);
+      }
+
+      .widget-picker__text strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .widget-picker__text span {
+        font-size: 12px;
+        color: var(--text-section);
+        line-height: 1.45;
+      }
+
+      .order-hint {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 12px;
+        line-height: 1.5;
+      }
+
+      .order-list {
+        list-style: none;
+        margin: 12px 0 0;
+        padding: 0;
+      }
+
+      .order-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+        font-size: 13px;
+      }
+
+      .order-list button {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--border-input);
+        background: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+        color: var(--text-section);
+      }
+
+      .order-list button:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
       }
 
       .prototype-footnote {
@@ -588,45 +1007,74 @@
       <div class="page-header">
         <div class="page-header__titles">
           <h1>ホーム</h1>
-          <p>未対応の契約・タスクを優先して処理できます。</p>
+          <p>
+            ウィジェットを選んで自分用のダッシュボードを組み立てられます。表示ブロックは「ウィジェットを管理」から追加・並べ替えできます。
+          </p>
         </div>
-        <button
-          type="button"
-          class="btn-primary"
-          id="btnProcessPending"
-          title="未対応の一覧へスクロールし、先頭項目を強調します"
-        >
-          <span class="material-symbols-rounded" style="font-size: 20px"
-            >pending_actions</span
+        <div class="page-header__actions">
+          <button type="button" class="btn-secondary" id="btnWidgetModal">
+            <span class="material-symbols-rounded" style="font-size: 20px"
+              >widgets</span
+            >
+            ウィジェットを管理
+          </button>
+          <button
+            type="button"
+            class="btn-primary"
+            id="btnProcessPending"
+            title="ワークキューウィジェットへ移動し、先頭行を強調します"
           >
-          未対応を処理する
-        </button>
-      </div>
-
-      <section class="summary" id="summary" aria-label="要約"></section>
-
-      <div class="layout">
-        <div class="panel" id="queuePanel">
-          <div class="panel__head">
-            <div>
-              <h2 id="queueTitle">自分のワークキュー</h2>
-              <p id="queueDesc">期限とステータスに応じて並んでいます。</p>
-            </div>
-            <div class="filter-row" id="filterRow" hidden></div>
-          </div>
-          <div id="tableHost"></div>
+            <span class="material-symbols-rounded" style="font-size: 20px"
+              >pending_actions</span
+            >
+            未対応を処理する
+          </button>
         </div>
-        <aside class="support panel" style="padding: 14px 16px" aria-label="ショートカット">
-          <h3>よく使う導線</h3>
-          <ul>
-            <li><a href="#">契約一覧へ</a></li>
-            <li><a href="#">案件一覧へ</a></li>
-            <li><a href="#">プロジェクト一覧へ</a></li>
-          </ul>
-          <p>メインの作業は左のキューで完結させ、ここは補助のリンクのみにしています。</p>
-        </aside>
       </div>
+
+      <div class="dashboard" id="dashboard"></div>
     </main>
+
+    <div
+      class="modal-backdrop"
+      id="widgetModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="widgetModalTitle"
+      hidden
+    >
+      <div class="modal">
+        <div class="modal__head">
+          <div>
+            <h2 id="widgetModalTitle">ウィジェットを管理</h2>
+            <p>
+              チェックをオンにしたブロックだけをホームに表示します。並び順は一覧の上下ボタンで変更できます。
+            </p>
+          </div>
+          <button
+            type="button"
+            class="modal__close"
+            id="widgetModalClose"
+            aria-label="閉じる"
+          >
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+        <div class="modal__body">
+          <div id="widgetCheckboxes"></div>
+          <p class="order-hint">表示するウィジェットの並び（上から順に配置されます）</p>
+          <ul class="order-list" id="widgetOrderList" aria-label="ウィジェットの並び順"></ul>
+        </div>
+        <div class="modal__foot">
+          <button type="button" class="btn-ghost" id="widgetModalCancel">
+            キャンセル
+          </button>
+          <button type="button" class="btn-primary" id="widgetModalApply">
+            画面に反映
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="prototype-footnote" aria-hidden="false">
       <span>プロトタイプ：表示状態</span>
@@ -645,6 +1093,56 @@
 
     <script>
       (function () {
+        const WIDGET_DEFS = {
+          kpi: {
+            title: "未対応サマリー",
+            desc: "承認待ち・期限7日以内・差戻しの件数を一覧します。",
+            className: "widget--kpi",
+          },
+          create: {
+            title: "新規作成",
+            desc: "契約・案件・プロジェクトのクイック作成と、テンプレートからの作成導線です。",
+            className: "widget--create",
+          },
+          drafts: {
+            title: "下書き・作成中",
+            desc: "保存済みの下書きや入力途中の新規作成を再開できます。",
+            className: "widget--drafts",
+          },
+          queue: {
+            title: "自分のワークキュー",
+            desc: "未対応の契約・案件タスクをテーブルで表示します。",
+            className: "widget--queue",
+          },
+          shortcuts: {
+            title: "よく使う導線",
+            desc: "契約・案件・プロジェクト一覧へのショートカットです。",
+            className: "widget--shortcuts",
+          },
+          news: {
+            title: "お知らせ",
+            desc: "運営からの周知やリリース情報をコンパクトに表示します。",
+            className: "widget--news",
+          },
+        };
+
+        const DEFAULT_ORDER = [
+          "kpi",
+          "create",
+          "drafts",
+          "queue",
+          "shortcuts",
+          "news",
+        ];
+        const DEFAULT_ENABLED = {
+          kpi: true,
+          create: true,
+          drafts: true,
+          queue: true,
+          shortcuts: true,
+          news: false,
+        };
+
         const ROWS = [
           {
             kind: "契約",
@@ -690,16 +1188,69 @@
           { key: "returned", label: "差戻し", value: 1, danger: true },
         ];
 
+        const NEWS_ITEMS = [
+          { date: "2026-04-01", title: "テンプレート「購買基本」の改定が利用可能になりました" },
+          { date: "2026-03-28", title: "メンテナンス予告: 4月5日 2:00〜4:00" },
+        ];
+
+        const CREATE_TEMPLATES = [
+          {
+            id: "t1",
+            name: "秘密保持契約（標準）",
+            meta: "法務レビュー済み",
+            kind: "契約",
+            disabled: false,
+          },
+          {
+            id: "t2",
+            name: "購買基本契約書",
+            meta: "調達部おすすめ",
+            kind: "契約",
+            disabled: false,
+          },
+          {
+            id: "t3",
+            name: "業務委託（準委任）",
+            meta: "権限により利用不可",
+            kind: "契約",
+            disabled: true,
+          },
+        ];
+
+        const DRAFT_ROWS = [
+          {
+            type: "契約",
+            title: "ライセンス契約（下書き）",
+            updated: "2時間前",
+            step: "当事者情報",
+          },
+          {
+            type: "案件",
+            title: "新規ベンダー評価フロー",
+            updated: "昨日",
+            step: "基本情報",
+          },
+        ];
+
         let uiState = "default";
         let activeFilter = null;
 
+        let enabledWidgets = Object.assign({}, DEFAULT_ENABLED);
+        let widgetOrder = DEFAULT_ORDER.slice();
+
+        let draftEnabled = null;
+        let draftOrder = null;
+
         const els = {
-          summary: document.getElementById("summary"),
-          tableHost: document.getElementById("tableHost"),
-          filterRow: document.getElementById("filterRow"),
-          queueTitle: document.getElementById("queueTitle"),
-          queueDesc: document.getElementById("queueDesc"),
-          btn: document.getElementById("btnProcessPending"),
+          dashboard: document.getElementById("dashboard"),
+          btnProcess: document.getElementById("btnProcessPending"),
+          btnModal: document.getElementById("btnWidgetModal"),
+          modal: document.getElementById("widgetModal"),
+          modalClose: document.getElementById("widgetModalClose"),
+          modalCancel: document.getElementById("widgetModalCancel"),
+          modalApply: document.getElementById("widgetModalApply"),
+          checkboxesHost: document.getElementById("widgetCheckboxes"),
+          orderList: document.getElementById("widgetOrderList"),
           live: document.getElementById("live"),
         };
 
@@ -717,108 +1268,434 @@
           });
         }
 
-        function renderSummary() {
-          els.summary.innerHTML = "";
+        function visibleWidgetIds() {
+          return widgetOrder.filter(function (id) {
+            return enabledWidgets[id];
+          });
+        }
+
+        function openModal() {
+          draftEnabled = Object.assign({}, enabledWidgets);
+          draftOrder = widgetOrder.slice();
+          renderModalContent();
+          els.modal.hidden = false;
+          requestAnimationFrame(function () {
+            els.modal.classList.add("is-open");
+          });
+          document.getElementById("widgetModalApply").focus();
+        }
+
+        function closeModal() {
+          els.modal.classList.remove("is-open");
+          setTimeout(function () {
+            els.modal.hidden = true;
+            draftEnabled = null;
+            draftOrder = null;
+          }, 150);
+        }
+
+        function renderModalCheckboxes() {
+          els.checkboxesHost.innerHTML = "";
+          DEFAULT_ORDER.forEach(function (id) {
+            const def = WIDGET_DEFS[id];
+            const row = document.createElement("div");
+            row.className = "widget-picker__item";
+            const checked = draftEnabled[id] ? " checked" : "";
+            row.innerHTML =
+              '<label style="display:flex;gap:12px;cursor:pointer;width:100%">' +
+              '<input type="checkbox" data-wid="' +
+              id +
+              '"' +
+              checked +
+              " />" +
+              '<span class="widget-picker__text"><strong>' +
+              def.title +
+              "</strong><span>" +
+              def.desc +
+              "</span></span></label>";
+            els.checkboxesHost.appendChild(row);
+          });
+          els.checkboxesHost.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
+            cb.addEventListener("change", function () {
+              draftEnabled[cb.dataset.wid] = cb.checked;
+              renderModalOrderList();
+            });
+          });
+        }
+
+        function renderModalOrderList() {
+          const ordered = draftOrder.filter(function (id) {
+            return draftEnabled[id];
+          });
+          els.orderList.innerHTML = "";
+          if (ordered.length === 0) {
+            const li = document.createElement("li");
+            li.style.color = "#a8adba";
+            li.textContent = "表示中のウィジェットはありません";
+            els.orderList.appendChild(li);
+            return;
+          }
+          ordered.forEach(function (id, index) {
+            const li = document.createElement("li");
+            const def = WIDGET_DEFS[id];
+            li.innerHTML =
+              '<button type="button" class="order-up" data-wid="' +
+              id +
+              '" aria-label="上へ">↑</button>' +
+              '<button type="button" class="order-down" data-wid="' +
+              id +
+              '" aria-label="下へ">↓</button>' +
+              "<span>" +
+              def.title +
+              "</span>";
+            const up = li.querySelector(".order-up");
+            const down = li.querySelector(".order-down");
+            up.disabled = index === 0;
+            down.disabled = index === ordered.length - 1;
+            up.addEventListener("click", function () {
+              moveDraftOrder(id, -1);
+            });
+            down.addEventListener("click", function () {
+              moveDraftOrder(id, 1);
+            });
+            els.orderList.appendChild(li);
+          });
+        }
+
+        function moveDraftOrder(id, delta) {
+          const idx = draftOrder.indexOf(id);
+          if (idx < 0) return;
+          const j = idx + delta;
+          if (j < 0 || j >= draftOrder.length) return;
+          const tmp = draftOrder[idx];
+          draftOrder[idx] = draftOrder[j];
+          draftOrder[j] = tmp;
+          renderModalOrderList();
+        }
+
+        function renderModalContent() {
+          renderModalCheckboxes();
+          renderModalOrderList();
+        }
+
+        function applyModal() {
+          enabledWidgets = Object.assign({}, draftEnabled);
+          widgetOrder = draftOrder.slice();
+          closeModal();
+          renderDashboard();
+          announce("ウィジェット構成を更新しました。");
+        }
+
+        function renderKpiWidget(host) {
+          const wrap = document.createElement("div");
+          wrap.className = "widget__body";
+          const row = document.createElement("div");
+          row.className = "kpi-row";
+
           if (uiState === "loading") {
             for (let i = 0; i < 3; i++) {
               const d = document.createElement("div");
-              d.className = "summary__item";
+              d.className = "kpi-tile";
               d.style.cursor = "default";
               d.innerHTML =
-                '<span class="summary__label skeleton" style="width:72px"></span><span class="summary__value skeleton" style="width:32px;height:22px"></span>';
-              els.summary.appendChild(d);
+                '<span class="kpi-tile__label skeleton" style="width:72px"></span><span class="kpi-tile__value skeleton" style="width:28px;height:22px;display:inline-block"></span>';
+              row.appendChild(d);
             }
+            wrap.appendChild(row);
+            host.appendChild(wrap);
             return;
           }
+
           if (uiState === "empty") {
             const d = document.createElement("div");
-            d.className = "summary__item";
+            d.className = "kpi-tile";
             d.style.cursor = "default";
             d.innerHTML =
-              '<span class="summary__label">未対応</span><span class="summary__value">0</span>';
-            els.summary.appendChild(d);
+              '<span class="kpi-tile__label">未対応</span><span class="kpi-tile__value">0</span>';
+            row.appendChild(d);
+            wrap.appendChild(row);
+            host.appendChild(wrap);
             return;
           }
+
           if (uiState === "error") {
             const d = document.createElement("div");
-            d.className = "summary__item";
+            d.className = "kpi-tile";
             d.style.cursor = "default";
             d.innerHTML =
-              '<span class="summary__label">要約</span><span class="summary__value">—</span>';
-            els.summary.appendChild(d);
+              '<span class="kpi-tile__label">要約</span><span class="kpi-tile__value">—</span>';
+            row.appendChild(d);
+            wrap.appendChild(row);
+            host.appendChild(wrap);
             return;
           }
 
           summaryConfig.forEach(function (c) {
             const btn = document.createElement("button");
             btn.type = "button";
-            btn.className = "summary__item";
-            btn.dataset.filter = c.key;
+            btn.className = "kpi-tile";
             btn.innerHTML =
-              '<span class="summary__label">' +
+              '<span class="kpi-tile__label">' +
               c.label +
-              '</span><span class="summary__value' +
-              (c.danger ? " summary__value--danger" : "") +
+              '</span><span class="kpi-tile__value' +
+              (c.danger ? " kpi-tile__value--danger" : "") +
               '">' +
               c.value +
               "</span>";
             if (uiState === "disabled") {
               btn.disabled = true;
-              btn.style.opacity = "0.55";
-              btn.style.cursor = "not-allowed";
             } else {
               btn.addEventListener("click", function () {
                 activeFilter = c.key;
-                renderFilters();
-                renderTable();
-                announce(c.label + "で絞り込みました。");
-                document.getElementById("queuePanel").scrollIntoView({
+                renderDashboard();
+                announce(c.label + "でワークキューを絞り込みました。");
+                document.getElementById("w-queue")?.scrollIntoView({
                   behavior: "smooth",
                   block: "start",
                 });
               });
             }
-            els.summary.appendChild(btn);
+            row.appendChild(btn);
           });
+          wrap.appendChild(row);
+          host.appendChild(wrap);
         }
 
-        function renderFilters() {
-          els.filterRow.hidden =
-            uiState !== "default" || activeFilter === null;
-          if (els.filterRow.hidden) {
-            els.filterRow.innerHTML = "";
-            return;
-          }
-          const labels = { approval: "承認待ち", due: "期限7日以内", returned: "差戻し" };
-          const chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "filter-chip filter-chip--on";
-          chip.textContent = labels[activeFilter] + "で絞り込み";
-          chip.addEventListener("click", function () {
-            activeFilter = null;
-            renderFilters();
-            renderTable();
-            announce("絞り込みを解除しました。");
-          });
-          els.filterRow.appendChild(chip);
-        }
-
-        function renderTable() {
-          els.tableHost.innerHTML = "";
+        function renderCreateWidget(host) {
+          const inner = document.createElement("div");
+          inner.className = "create-widget-inner widget__body";
 
           if (uiState === "loading") {
-            const wrap = document.createElement("div");
-            wrap.style.padding = "16px";
-            for (let r = 0; r < 5; r++) {
+            inner.innerHTML =
+              '<div><div class="skeleton" style="width:40%;height:12px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:8px"></div><div class="skeleton" style="height:44px;margin-bottom:8px"></div><div class="skeleton" style="height:44px"></div></div>' +
+              '<div><div class="skeleton" style="width:40%;height:12px;margin-bottom:12px"></div><div class="skeleton" style="height:52px;margin-bottom:8px"></div><div class="skeleton" style="height:52px"></div></div>';
+            host.appendChild(inner);
+            return;
+          }
+
+          if (uiState === "error") {
+            inner.innerHTML =
+              '<div class="error-block" style="grid-column:1/-1"><p>新規作成メニューを読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryCreate">再試行</button></div>';
+            host.appendChild(inner);
+            setTimeout(function () {
+              document.getElementById("retryCreate")?.addEventListener("click", function () {
+                uiState = "default";
+                syncRadios();
+                fullRender();
+                announce("再読み込みしました。");
+              });
+            }, 0);
+            return;
+          }
+
+          const left = document.createElement("div");
+          left.innerHTML =
+            '<p class="create-section__title">クイック新規作成</p><div class="create-actions" id="createQuickHost"></div>';
+          const quickHost = left.querySelector("#createQuickHost");
+
+          const quickDefs = [
+            {
+              icon: "post_add",
+              label: "契約を新規作成",
+              sub: "白紙から契約書を起案します",
+              action: "契約の新規作成画面へ遷移する想定です。",
+            },
+            {
+              icon: "folder_special",
+              label: "案件を新規作成",
+              sub: "案件管理に新しい案件を追加します",
+              action: "案件の新規作成画面へ遷移する想定です。",
+            },
+            {
+              icon: "workspaces",
+              label: "プロジェクトを新規作成",
+              sub: "関連契約を束ねるプロジェクトを作成します",
+              action: "プロジェクトの新規作成画面へ遷移する想定です。",
+            },
+            {
+              icon: "hub",
+              label: "チャネルを新規作成",
+              sub: "外部共有用のチャネルを用意します",
+              action: "チャネルの新規作成画面へ遷移する想定です。",
+            },
+          ];
+
+          quickDefs.forEach(function (q) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "create-action-btn";
+            btn.innerHTML =
+              '<span class="material-symbols-rounded">' +
+              q.icon +
+              '</span><span class="create-action-btn__text"><strong>' +
+              q.label +
+              "</strong><span>" +
+              q.sub +
+              "</span></span>";
+            if (uiState === "disabled") {
+              btn.disabled = true;
+            } else {
+              btn.addEventListener("click", function () {
+                announce(q.action);
+              });
+            }
+            quickHost.appendChild(btn);
+          });
+
+          const right = document.createElement("div");
+          right.innerHTML =
+            '<p class="create-section__title">テンプレートから作成</p><ul class="template-list" id="templateListHost"></ul>';
+          const listHost = right.querySelector("#templateListHost");
+
+          if (uiState === "empty") {
+            listHost.innerHTML =
+              '<li><p style="padding:12px 4px;font-size:13px;color:#73767f;margin:0">利用可能なテンプレートがありません。</p></li>';
+          } else {
+            CREATE_TEMPLATES.forEach(function (t) {
+              const li = document.createElement("li");
+              const b = document.createElement("button");
+              b.type = "button";
+              b.disabled = t.disabled || uiState === "disabled";
+              b.innerHTML =
+                '<span><span class="template-list__name">' +
+                t.name +
+                '</span><span class="template-list__meta">' +
+                t.meta +
+                '</span></span><span class="template-list__kind">' +
+                t.kind +
+                "</span>";
+              if (!b.disabled) {
+                b.addEventListener("click", function () {
+                  announce(
+                    "テンプレート「" + t.name + "」で新規作成を開始する想定です。"
+                  );
+                });
+              }
+              li.appendChild(b);
+              listHost.appendChild(li);
+            });
+          }
+
+          inner.appendChild(left);
+          inner.appendChild(right);
+          host.appendChild(inner);
+        }
+
+        function renderDraftsWidget(host) {
+          const wrap = document.createElement("div");
+          wrap.className = "widget__body";
+
+          if (uiState === "loading") {
+            const sk = document.createElement("div");
+            sk.style.padding = "16px";
+            for (let i = 0; i < 3; i++) {
+              const row = document.createElement("div");
+              row.className = "skeleton";
+              row.style.height = "36px";
+              row.style.marginBottom = "8px";
+              sk.appendChild(row);
+            }
+            wrap.appendChild(sk);
+            host.appendChild(wrap);
+            return;
+          }
+
+          if (uiState === "error") {
+            const box = document.createElement("div");
+            box.className = "error-block";
+            box.innerHTML =
+              '<p>下書き一覧を読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryDrafts">再試行</button>';
+            wrap.appendChild(box);
+            host.appendChild(wrap);
+            setTimeout(function () {
+              document.getElementById("retryDrafts")?.addEventListener("click", function () {
+                uiState = "default";
+                syncRadios();
+                fullRender();
+                announce("再読み込みしました。");
+              });
+            }, 0);
+            return;
+          }
+
+          if (uiState === "empty" || DRAFT_ROWS.length === 0) {
+            const box = document.createElement("div");
+            box.className = "empty-block";
+            box.innerHTML =
+              "<p>下書き・作成中の項目はありません。</p><button type=\"button\" class=\"btn-ghost\" id=\"fromTemplate\">テンプレートから作成</button>";
+            wrap.appendChild(box);
+            host.appendChild(wrap);
+            setTimeout(function () {
+              document.getElementById("fromTemplate")?.addEventListener("click", function () {
+                announce("新規作成ウィジェットのテンプレート一覧を参照する想定です。");
+                document.getElementById("w-create")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              });
+            }, 0);
+            return;
+          }
+
+          const div = document.createElement("div");
+          div.className = "drafts-table-wrap";
+          const table = document.createElement("table");
+          table.innerHTML =
+            "<thead><tr><th>種別</th><th>件名</th><th>進捗</th><th>更新</th></tr></thead>";
+          const tb = document.createElement("tbody");
+          DRAFT_ROWS.forEach(function (d) {
+            const tr = document.createElement("tr");
+            tr.innerHTML =
+              "<td>" +
+              d.type +
+              '</td><td><div class="cell-title">' +
+              d.title +
+              '</div></td><td><span class="badge badge--neutral">' +
+              d.step +
+              "</span></td><td>" +
+              d.updated +
+              "</td>";
+            if (uiState === "disabled") {
+              tr.style.opacity = "0.55";
+              tr.style.cursor = "not-allowed";
+            } else {
+              tr.style.cursor = "pointer";
+              tr.addEventListener("click", function () {
+                announce("下書きの編集画面へ遷移する想定です。");
+              });
+            }
+            tb.appendChild(tr);
+          });
+          table.appendChild(tb);
+          div.appendChild(table);
+          wrap.appendChild(div);
+          host.appendChild(wrap);
+        }
+
+        function renderQueueWidget(host) {
+          const filterHost = document.createElement("div");
+          filterHost.className = "filter-row";
+          filterHost.id = "queueFilterHost";
+          filterHost.hidden = true;
+
+          const body = document.createElement("div");
+          body.className = "widget__body";
+
+          if (uiState === "loading") {
+            const sk = document.createElement("div");
+            sk.style.padding = "16px";
+            for (let r = 0; r < 4; r++) {
               const row = document.createElement("div");
               row.style.display = "flex";
               row.style.gap = "12px";
               row.style.marginBottom = "12px";
               row.innerHTML =
-                '<div class="skeleton" style="flex:0 0 48px;height:36px"></div><div style="flex:1"><div class="skeleton" style="width:60%;margin-bottom:8px"></div><div class="skeleton" style="width:40%"></div></div>';
-              wrap.appendChild(row);
+                '<div class="skeleton" style="flex:0 0 40px;height:32px"></div><div style="flex:1"><div class="skeleton" style="width:55%;margin-bottom:8px"></div><div class="skeleton" style="width:35%"></div></div>';
+              sk.appendChild(row);
             }
-            els.tableHost.appendChild(wrap);
+            body.appendChild(sk);
+            host.appendChild(filterHost);
+            host.appendChild(body);
             return;
           }
 
@@ -827,10 +1704,14 @@
             box.className = "empty-block";
             box.innerHTML =
               "<p>未対応の項目はありません。</p><button type=\"button\" class=\"btn-ghost\" id=\"goList\">契約一覧へ</button>";
-            els.tableHost.appendChild(box);
-            document.getElementById("goList")?.addEventListener("click", function () {
-              announce("契約一覧へ遷移する想定です。");
-            });
+            body.appendChild(box);
+            host.appendChild(filterHost);
+            host.appendChild(body);
+            setTimeout(function () {
+              document.getElementById("goList")?.addEventListener("click", function () {
+                announce("契約一覧へ遷移する想定です。");
+              });
+            }, 0);
             return;
           }
 
@@ -839,14 +1720,37 @@
             box.className = "error-block";
             box.innerHTML =
               '<p>ワークキューを読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryQueue">再試行</button>';
-            els.tableHost.appendChild(box);
-            document.getElementById("retryQueue")?.addEventListener("click", function () {
-              uiState = "default";
-              syncRadios();
-              fullRender();
-              announce("再読み込みしました。");
-            });
+            body.appendChild(box);
+            host.appendChild(filterHost);
+            host.appendChild(body);
+            setTimeout(function () {
+              document.getElementById("retryQueue")?.addEventListener("click", function () {
+                uiState = "default";
+                syncRadios();
+                fullRender();
+                announce("再読み込みしました。");
+              });
+            }, 0);
             return;
+          }
+
+          if (activeFilter) {
+            filterHost.hidden = false;
+            const labels = {
+              approval: "承認待ち",
+              due: "期限7日以内",
+              returned: "差戻し",
+            };
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "filter-chip filter-chip--on";
+            chip.textContent = labels[activeFilter] + "で絞り込み";
+            chip.addEventListener("click", function () {
+              activeFilter = null;
+              renderDashboard();
+              announce("絞り込みを解除しました。");
+            });
+            filterHost.appendChild(chip);
           }
 
           const rows = filteredRows();
@@ -856,7 +1760,6 @@
           const tb = document.createElement("tbody");
           rows.forEach(function (r, idx) {
             const tr = document.createElement("tr");
-            tr.dataset.rowIndex = String(idx);
             tr.tabIndex = -1;
             tr.innerHTML =
               "<td>" +
@@ -883,35 +1786,110 @@
             tb.appendChild(tr);
           });
           table.appendChild(tb);
-          els.tableHost.appendChild(table);
+          body.appendChild(table);
+          host.appendChild(filterHost);
+          host.appendChild(body);
         }
 
-        function focusFirstPendingRow() {
-          const tr = els.tableHost.querySelector("tbody tr");
+        function renderShortcutsWidget(host) {
+          const div = document.createElement("div");
+          div.className = "shortcuts-body widget__body";
+          div.innerHTML =
+            "<ul><li><a href=\"#\">契約一覧へ</a></li><li><a href=\"#\">案件一覧へ</a></li><li><a href=\"#\">プロジェクト一覧へ</a></li></ul><p>ダッシュボードの任意配置用。主作業はワークキューウィジェット側で完結させます。</p>";
+          host.appendChild(div);
+        }
+
+        function renderNewsWidget(host) {
+          const div = document.createElement("div");
+          div.className = "news-body widget__body";
+          if (uiState === "loading") {
+            div.innerHTML =
+              '<div class="news-item"><div class="skeleton" style="width:40%;margin-bottom:8px"></div><div class="skeleton" style="width:85%"></div></div>';
+            host.appendChild(div);
+            return;
+          }
+          div.innerHTML = NEWS_ITEMS.map(function (n) {
+            return (
+              '<div class="news-item"><div class="news-item__date">' +
+              n.date +
+              '</div><div class="news-item__title">' +
+              n.title +
+              "</div></div>"
+            );
+          }).join("");
+          host.appendChild(div);
+        }
+
+        function renderDashboard() {
+          els.dashboard.innerHTML = "";
+          const ids = visibleWidgetIds();
+
+          if (ids.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "dashboard__empty";
+            empty.innerHTML =
+              "<p>表示するウィジェットがありません。<br />「ウィジェットを管理」からブロックを選んでください。</p><button type=\"button\" class=\"btn-primary\" id=\"emptyOpenModal\">ウィジェットを管理</button>";
+            els.dashboard.appendChild(empty);
+            document.getElementById("emptyOpenModal")?.addEventListener("click", openModal);
+            return;
+          }
+
+          const grid = document.createElement("div");
+          grid.className = "dashboard-grid";
+
+          ids.forEach(function (wid) {
+            const def = WIDGET_DEFS[wid];
+            const section = document.createElement("section");
+            section.className = "widget " + def.className;
+            section.id = "w-" + wid;
+            const head = document.createElement("div");
+            head.className = "widget__head";
+            head.innerHTML =
+              "<div><h2>" +
+              def.title +
+              '</h2><span>ウィジェット</span></div>';
+            section.appendChild(head);
+            const bodyHost = document.createElement("div");
+            bodyHost.className = "widget__body-outer";
+            if (wid === "kpi") renderKpiWidget(bodyHost);
+            else if (wid === "create") renderCreateWidget(bodyHost);
+            else if (wid === "drafts") renderDraftsWidget(bodyHost);
+            else if (wid === "queue") renderQueueWidget(bodyHost);
+            else if (wid === "shortcuts") renderShortcutsWidget(bodyHost);
+            else if (wid === "news") renderNewsWidget(bodyHost);
+            section.appendChild(bodyHost);
+            grid.appendChild(section);
+          });
+
+          els.dashboard.appendChild(grid);
+        }
+
+        function focusFirstQueueRow() {
+          const tr = document.querySelector("#w-queue tbody tr");
           if (!tr) return;
-          els.tableHost.querySelectorAll("tbody tr").forEach(function (r) {
+          document.querySelectorAll("#w-queue tbody tr").forEach(function (r) {
             r.classList.remove("is-focused");
           });
           tr.classList.add("is-focused");
-          tr.focus?.();
+          tr.focus();
           tr.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
 
         function fullRender() {
-          els.queueDesc.textContent =
-            uiState === "empty"
-              ? "現在、対応が必要な項目はありません。"
-              : "期限とステータスに応じて並んでいます。";
-          renderSummary();
-          renderFilters();
-          renderTable();
-          els.btn.disabled = uiState === "disabled" || uiState === "loading";
-          if (uiState === "disabled") {
-            els.btn.title = "権限または設定により、この操作は現在できません。";
+          renderDashboard();
+          els.btnProcess.disabled =
+            uiState === "disabled" ||
+            uiState === "loading" ||
+            !enabledWidgets.queue;
+          if (!enabledWidgets.queue) {
+            els.btnProcess.title = "ワークキューウィジェットを表示してください。";
+          } else if (uiState === "disabled") {
+            els.btnProcess.title = "権限または設定により、この操作は現在できません。";
           } else {
-            els.btn.title =
-              "未対応の一覧へスクロールし、先頭項目を強調します";
+            els.btnProcess.title =
+              "ワークキューウィジェットへ移動し、先頭行を強調します";
           }
+          els.btnModal.disabled = uiState === "loading";
         }
 
         function syncRadios() {
@@ -920,17 +1898,23 @@
           });
         }
 
-        els.btn.addEventListener("click", function () {
-          if (els.btn.disabled) return;
+        els.btnModal.addEventListener("click", openModal);
+        els.modalClose.addEventListener("click", closeModal);
+        els.modalCancel.addEventListener("click", closeModal);
+        els.modalApply.addEventListener("click", applyModal);
+        els.modal.addEventListener("click", function (e) {
+          if (e.target === els.modal) closeModal();
+        });
+
+        els.btnProcess.addEventListener("click", function () {
+          if (els.btnProcess.disabled) return;
           activeFilter = null;
-          renderFilters();
-          renderTable();
-          document.getElementById("queuePanel").scrollIntoView({
+          document.getElementById("w-queue")?.scrollIntoView({
             behavior: "smooth",
             block: "start",
           });
-          announce("未対応キューの先頭にフォーカスしました。");
-          setTimeout(focusFirstPendingRow, 320);
+          announce("ワークキューの先頭にフォーカスしました。");
+          setTimeout(focusFirstQueueRow, 350);
         });
 
         document.querySelectorAll('input[name="uiState"]').forEach(function (r) {
@@ -940,6 +1924,10 @@
             activeFilter = null;
             fullRender();
           });
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !els.modal.hidden) closeModal();
         });
 
         fullRender();
