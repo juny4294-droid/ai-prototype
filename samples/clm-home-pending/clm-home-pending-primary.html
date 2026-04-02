@@ -360,6 +360,95 @@
         grid-column: span 6;
       }
 
+      .create-primary-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .create-primary-row--quad {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .create-primary-row--quad .create-primary-btn {
+        min-height: 64px;
+        padding: 8px 4px;
+        font-size: 10px;
+        gap: 4px;
+      }
+
+      .create-primary-row--quad .create-primary-btn .material-symbols-rounded {
+        font-size: 22px;
+      }
+
+      .create-primary-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 8px;
+        min-height: 76px;
+        border: 2px solid var(--brand-primary);
+        border-radius: 8px;
+        background: #f1fafb;
+        cursor: pointer;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--brand-dark);
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .create-primary-btn:hover:not(:disabled) {
+        background: #dff3f1;
+      }
+
+      .create-primary-btn:focus-visible {
+        outline: 2px solid var(--brand-primary);
+        outline-offset: 2px;
+      }
+
+      .create-primary-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .create-primary-btn .material-symbols-rounded {
+        font-size: 26px;
+        color: var(--brand-primary);
+      }
+
+      .create-template-panel {
+        padding: 8px 0 4px;
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .template-list--compact li {
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .template-list--compact button {
+        padding: 6px 2px;
+      }
+
+      .template-list--compact .template-list__name {
+        font-size: 12px;
+      }
+
+      .template-list--compact .template-list__meta {
+        font-size: 10px;
+        margin-top: 1px;
+      }
+
+      .template-list--compact .template-list__kind {
+        font-size: 9px;
+        padding: 1px 6px;
+      }
+
       @media (max-width: 960px) {
         .dashboard-grid > .widget {
           grid-column: 1 / -1;
@@ -371,74 +460,122 @@
       }
 
       .create-widget-inner {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        padding: 14px;
-      }
-
-      /* ウィジェット幅が半分のときは新規作成ブロックを縦積み */
-      @media (max-width: 1200px) {
-        .create-widget-inner {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .create-section__title {
-        margin: 0 0 10px;
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--text-section);
-        letter-spacing: 0.02em;
-      }
-
-      .create-actions {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
+        padding: 10px 12px 12px;
       }
 
-      .create-action-btn {
+      .quick-action-group {
+        margin: 0;
+      }
+
+      .quick-action-group__head {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .quick-action-group__title {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-strong);
+      }
+
+      .quick-action-link {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--brand-dark);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .quick-action-link:hover {
+        text-decoration: underline;
+      }
+
+      .quick-action-card {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
         gap: 10px;
         padding: 10px 12px;
         border: 1px solid var(--border-input);
-        background: #fff;
         border-radius: var(--radius);
+        background: #fff;
         cursor: pointer;
-        text-align: left;
         font: inherit;
-        color: var(--text-strong);
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
         transition: border-color 0.12s ease, background 0.12s ease;
       }
 
-      .create-action-btn .material-symbols-rounded {
-        color: var(--brand-dark);
-        font-size: 22px;
-      }
-
-      .create-action-btn:hover:not(:disabled) {
+      .quick-action-card:hover:not(:disabled) {
         border-color: var(--brand-primary);
         background: #f1fafb;
       }
 
-      .create-action-btn:disabled {
+      .quick-action-card:disabled {
         opacity: 0.45;
         cursor: not-allowed;
       }
 
-      .create-action-btn__text strong {
-        display: block;
-        font-size: 13px;
-        font-weight: 700;
+      .quick-action-card__main {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        min-width: 0;
       }
 
-      .create-action-btn__text span {
-        display: block;
+      .quick-action-card__icon {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius);
+        background: #f0f3fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--nav-active);
+      }
+
+      .quick-action-card__icon .material-symbols-rounded {
+        font-size: 22px;
+      }
+
+      .quick-action-card__title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-strong);
+      }
+
+      .quick-action-card__desc {
         font-size: 11px;
         color: var(--text-section);
-        margin-top: 2px;
+        margin-top: 4px;
+        line-height: 1.45;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .quick-action-card__arrow {
+        flex-shrink: 0;
+        color: var(--brand-primary);
+        align-self: center;
+      }
+
+      .create-section__title {
+        margin: 0 0 8px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-section);
+        letter-spacing: 0.02em;
       }
 
       .template-list {
@@ -513,6 +650,203 @@
       .drafts-table-wrap th,
       .drafts-table-wrap td {
         padding: 8px 14px;
+      }
+
+      .tasks-widget__foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 8px 16px 12px;
+        border-top: 1px solid var(--border-input);
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .tasks-widget__foot .btn-ghost {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+
+      .task-cell-title {
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-strong);
+        line-height: 1.35;
+      }
+
+      /* 自分が担当のタスク（tasks_assigned.svg 準拠） */
+      .widget__head--tasks .widget__head-start {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .widget__head--tasks h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .tasks-head-icon {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: #111827;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tasks-head-icon .material-symbols-rounded {
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .tasks-head-open {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        padding: 0;
+        border: 2px solid #10b981;
+        border-radius: 4px;
+        background: transparent;
+        color: #10b981;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tasks-head-open .material-symbols-rounded {
+        font-size: 14px;
+      }
+
+      .tasks-head-open:hover:not(:disabled) {
+        background: rgba(16, 185, 129, 0.08);
+      }
+
+      .tasks-head-open:focus-visible {
+        outline: 2px solid #10b981;
+        outline-offset: 2px;
+      }
+
+      .tasks-head-open:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .tasks-assigned {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        flex: 1;
+      }
+
+      .tasks-assigned__list {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 10px 12px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .tasks-assigned-row {
+        display: grid;
+        grid-template-columns: 5.75rem minmax(0, 1fr) 7.75rem auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        column-gap: 10px;
+        row-gap: 2px;
+        min-height: 46px;
+        padding: 8px 12px 8px 10px;
+        border: 1px solid #e6eaf0;
+        border-radius: 10px;
+        background: #fff;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .tasks-assigned-row:hover:not(:disabled) {
+        border-color: #cdd4df;
+        box-shadow: 0 8px 24px rgba(11, 18, 32, 0.1);
+      }
+
+      button.tasks-assigned-row:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .tasks-pill {
+        grid-row: 1 / -1;
+        justify-self: start;
+        align-self: center;
+        min-width: 74px;
+        height: 20px;
+        padding: 0 8px;
+        border-radius: 7px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      .tasks-pill--review {
+        background: #8a27a8;
+      }
+
+      .tasks-pill--consult {
+        background: #314574;
+      }
+
+      .tasks-pill--approval {
+        background: #047857;
+      }
+
+      .tasks-assigned-row__title {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.3;
+      }
+
+      .tasks-assigned-row__due {
+        grid-column: 3;
+        grid-row: 1 / -1;
+        justify-self: start;
+        align-self: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: #6b7280;
+        line-height: 1.3;
+        white-space: nowrap;
+      }
+
+      .tasks-assigned-row__status {
+        grid-column: 4;
+        grid-row: 1 / -1;
+        justify-self: end;
+        align-self: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #6b7280;
+        text-align: right;
       }
 
       .kpi-row {
@@ -792,6 +1126,199 @@
         pointer-events: auto;
       }
 
+      /* タスク詳細：右ドロワー */
+      .task-drawer-root {
+        position: fixed;
+        inset: 0;
+        z-index: 105;
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .task-drawer-root.is-open {
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .task-drawer-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(20, 29, 61, 0.35);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .task-drawer-root.is-open .task-drawer-backdrop {
+        opacity: 1;
+      }
+
+      .task-drawer-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(440px, 100vw);
+        max-width: 100%;
+        background: #fff;
+        box-shadow: -8px 0 32px rgba(20, 29, 61, 0.14);
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .task-drawer-root.is-open .task-drawer-panel {
+        transform: translateX(0);
+      }
+
+      .task-drawer-panel__head {
+        flex-shrink: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .task-drawer-panel__head h2 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.4;
+        padding-right: 8px;
+      }
+
+      .task-drawer-panel__close {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: transparent;
+        border-radius: var(--radius);
+        cursor: pointer;
+        color: var(--text-section);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .task-drawer-panel__close:hover {
+        background: var(--page-bg);
+        color: var(--text-strong);
+      }
+
+      .task-drawer-panel__body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 16px 18px 24px;
+      }
+
+      .task-drawer-deadline {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-strong);
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border-input);
+      }
+
+      .task-drawer-deadline span {
+        color: var(--text-section);
+        font-weight: 500;
+        margin-right: 6px;
+      }
+
+      .task-drawer-field {
+        margin-bottom: 14px;
+      }
+
+      .task-drawer-field__label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-section);
+        margin-bottom: 6px;
+      }
+
+      .task-drawer-person {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .task-drawer-person__av {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--border-input);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-section);
+        border: 1px solid var(--border-input);
+      }
+
+      .task-drawer-person__main {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-strong);
+      }
+
+      .task-drawer-person__sub {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      .task-drawer-field__text {
+        font-size: 13px;
+        color: var(--text-strong);
+        line-height: 1.5;
+      }
+
+      .task-drawer-field__text a {
+        color: var(--brand-dark);
+        text-decoration: none;
+      }
+
+      .task-drawer-field__text a:hover {
+        text-decoration: underline;
+      }
+
+      .task-drawer-comments {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-input);
+      }
+
+      .task-drawer-comments textarea {
+        width: 100%;
+        min-height: 72px;
+        margin-top: 8px;
+        padding: 10px 12px;
+        font: inherit;
+        font-size: 13px;
+        border: 1px solid var(--border-input);
+        border-radius: var(--radius);
+        resize: vertical;
+        box-sizing: border-box;
+      }
+
+      .task-drawer-comments textarea:disabled {
+        background: var(--table-header);
+        color: var(--text-section);
+      }
+
+      .tasks-assigned-row.is-selected {
+        border-color: var(--brand-primary);
+        box-shadow: 0 0 0 1px var(--brand-primary);
+      }
+
       .modal {
         background: #fff;
         border-radius: 8px;
@@ -1036,6 +1563,35 @@
     </main>
 
     <div
+      class="task-drawer-root"
+      id="taskDrawerRoot"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="task-drawer-backdrop" id="taskDrawerBackdrop" tabindex="-1"></div>
+      <aside
+        class="task-drawer-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="taskDrawerTitle"
+        id="taskDrawerPanel"
+      >
+        <div class="task-drawer-panel__head">
+          <h2 id="taskDrawerTitle">タスク</h2>
+          <button
+            type="button"
+            class="task-drawer-panel__close"
+            id="taskDrawerClose"
+            aria-label="パネルを閉じる"
+          >
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+        <div class="task-drawer-panel__body" id="taskDrawerBody"></div>
+      </aside>
+    </div>
+
+    <div
       class="modal-backdrop"
       id="widgetModal"
       role="dialog"
@@ -1101,7 +1657,7 @@
           },
           create: {
             title: "新規作成",
-            desc: "契約・案件・プロジェクトのクイック作成と、テンプレートからの作成導線です。",
+            desc: "ホームのクイックアクション（依頼・相談／法務相談／案件）＋テンプレートからの契約作成です。",
             className: "widget--create",
           },
           drafts: {
@@ -1113,6 +1669,11 @@
             title: "自分のワークキュー",
             desc: "未対応の契約・案件タスクをテーブルで表示します。",
             className: "widget--queue",
+          },
+          tasks: {
+            title: "自分が担当のタスク",
+            desc: "担当タスクをカード行で表示（tasks_assigned.svg イメージ）。",
+            className: "widget--tasks",
           },
           shortcuts: {
             title: "よく使う導線",
@@ -1131,6 +1692,7 @@
           "create",
           "drafts",
           "queue",
+          "tasks",
           "shortcuts",
           "news",
         ];
@@ -1139,6 +1701,7 @@
           create: true,
           drafts: true,
           queue: true,
+          tasks: true,
           shortcuts: true,
           news: false,
         };
@@ -1232,6 +1795,75 @@
           },
         ];
 
+        /* 一覧行＋右ドロワー詳細用ダミー（実在名は使用しない） */
+        const ASSIGNED_TASK_ROWS = [
+          {
+            pill: "契約審査",
+            pillVariant: "review",
+            title: "条文確認",
+            fullTitle: "【契約審査依頼】条文確認",
+            due: "2026/12/31",
+            dueDetail: "2026/12/31 18:00",
+            status: "作成中",
+            statusVariant: "neutral",
+            requester: { initial: "上", name: "上村 瀬" },
+            assignee: { initial: "承", team: "承認チームA", members: "2人のメンバー" },
+            followers: "指定なし",
+            contractId: "contracts-47293",
+            contractName: "【ContractS検証用】購買基本契約（改定案）",
+            content:
+              "条文の整合性を確認してください。特に免責・責任限定条項について、取引実態と齟齬がないかご確認をお願いします。",
+          },
+          {
+            pill: "依頼相談",
+            pillVariant: "consult",
+            title: "コメント対応",
+            fullTitle: "【依頼・相談】コメント対応",
+            due: "2026/12/31",
+            dueDetail: "2026/12/31 12:00",
+            status: "作成中",
+            statusVariant: "neutral",
+            requester: { initial: "田", name: "田中 花子" },
+            assignee: { initial: "相", team: "法務相談窓口", members: "1人のメンバー" },
+            followers: "鈴木 一郎",
+            contractId: "contracts-48102",
+            contractName: "秘密保持契約（標準テンプレート）",
+            content: "スレッドに投稿されたコメントへの回答をお願いします。",
+          },
+          {
+            pill: "契約審査",
+            pillVariant: "review",
+            title: "差分確認",
+            fullTitle: "【契約審査依頼】差分確認",
+            due: "2026/12/31",
+            dueDetail: "2026/12/30 17:00",
+            status: "作成中",
+            statusVariant: "neutral",
+            requester: { initial: "鈴", name: "鈴木 一郎" },
+            assignee: { initial: "審", team: "契約審査G", members: "4人のメンバー" },
+            followers: "指定なし",
+            contractId: "contracts-50188",
+            contractName: "ライセンス契約（自動更新）",
+            content: "前回版からの差分を確認し、リーガル観点での指摘事項があればコメントをお願いします。",
+          },
+          {
+            pill: "承認",
+            pillVariant: "approval",
+            title: "押印申請の最終確認",
+            fullTitle: "【承認依頼】押印申請の最終確認",
+            due: "2026/04/05",
+            dueDetail: "2026/04/05 09:00",
+            status: "未対応",
+            statusVariant: "attention",
+            requester: { initial: "高", name: "高橋 次郎" },
+            assignee: { initial: "承", team: "承認チームB", members: "3人のメンバー" },
+            followers: "上村 瀬",
+            contractId: "contracts-51001",
+            contractName: "業務委託契約（準委任）",
+            content: "押印申請内容と添付文書の突合を行い、問題なければ承認してください。",
+          },
+        ];
+
         let uiState = "default";
         let activeFilter = null;
 
@@ -1254,6 +1886,120 @@
           live: document.getElementById("live"),
         };
 
+        let taskDrawerReturnFocus = null;
+
+        function getTaskDrawerEls() {
+          return {
+            root: document.getElementById("taskDrawerRoot"),
+            backdrop: document.getElementById("taskDrawerBackdrop"),
+            closeBtn: document.getElementById("taskDrawerClose"),
+            title: document.getElementById("taskDrawerTitle"),
+            body: document.getElementById("taskDrawerBody"),
+          };
+        }
+
+        function renderTaskDrawerBody(task) {
+          return (
+            '<div class="task-drawer-deadline"><span>締切日:</span> ' +
+            task.dueDetail +
+            '</div><div class="task-drawer-field"><span class="task-drawer-field__label">依頼者</span><div class="task-drawer-person"><div class="task-drawer-person__av">' +
+            task.requester.initial +
+            '</div><div><div class="task-drawer-person__main">' +
+            task.requester.name +
+            '</div></div></div></div><div class="task-drawer-field"><span class="task-drawer-field__label">担当者</span><div class="task-drawer-person"><div class="task-drawer-person__av">' +
+            task.assignee.initial +
+            '</div><div><div class="task-drawer-person__main">' +
+            task.assignee.team +
+            '</div><div class="task-drawer-person__sub">' +
+            task.assignee.members +
+            '</div></div></div></div><div class="task-drawer-field"><span class="task-drawer-field__label">フォロワー</span><div class="task-drawer-field__text">' +
+            task.followers +
+            '</div></div><div class="task-drawer-field"><span class="task-drawer-field__label">契約</span><div class="task-drawer-field__text"><a href="#" data-contract-link>' +
+            task.contractId +
+            " · " +
+            task.contractName +
+            '</a></div></div><div class="task-drawer-field"><span class="task-drawer-field__label">内容</span><div class="task-drawer-field__text">' +
+            task.content +
+            '</div></div><div class="task-drawer-field"><span class="task-drawer-field__label">ステータス</span><div><span class="badge badge--' +
+            task.statusVariant +
+            '">' +
+            task.status +
+            '</span></div></div><div class="task-drawer-comments"><span class="task-drawer-field__label">コメント</span><textarea disabled rows="3" placeholder="コメントを入力…（プロトタイプでは入力不可）"></textarea></div>'
+          );
+        }
+
+        function openTaskDrawer(task, rowEl) {
+          const d = getTaskDrawerEls();
+          if (!d.root) return;
+          taskDrawerReturnFocus = rowEl || null;
+          document.querySelectorAll(".tasks-assigned-row.is-selected").forEach(function (el) {
+            el.classList.remove("is-selected");
+          });
+          if (rowEl) {
+            rowEl.classList.add("is-selected");
+          }
+          d.title.textContent = task.fullTitle;
+          d.body.innerHTML = renderTaskDrawerBody(task);
+          d.body.querySelector("[data-contract-link]")?.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            announce("契約詳細へ遷移する想定です。");
+          });
+          d.root.hidden = false;
+          d.root.removeAttribute("aria-hidden");
+          document.body.style.overflow = "hidden";
+          requestAnimationFrame(function () {
+            d.root.classList.add("is-open");
+          });
+          announce("タスク詳細パネルを開きました。");
+          setTimeout(function () {
+            d.closeBtn.focus();
+          }, 80);
+        }
+
+        function closeTaskDrawer() {
+          const d = getTaskDrawerEls();
+          if (!d.root || d.root.hidden) return;
+          d.root.classList.remove("is-open");
+          document.body.style.overflow = "";
+          setTimeout(function () {
+            if (d.root.classList.contains("is-open")) return;
+            d.root.hidden = true;
+            d.root.setAttribute("aria-hidden", "true");
+            document.querySelectorAll(".tasks-assigned-row.is-selected").forEach(function (el) {
+              el.classList.remove("is-selected");
+            });
+            if (taskDrawerReturnFocus && taskDrawerReturnFocus.isConnected) {
+              taskDrawerReturnFocus.focus();
+            }
+            taskDrawerReturnFocus = null;
+          }, 300);
+        }
+
+        function resetTaskDrawerForNav() {
+          const root = document.getElementById("taskDrawerRoot");
+          if (!root) return;
+          root.classList.remove("is-open");
+          root.hidden = true;
+          root.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          document.querySelectorAll(".tasks-assigned-row.is-selected").forEach(function (el) {
+            el.classList.remove("is-selected");
+          });
+          taskDrawerReturnFocus = null;
+        }
+
+        function initTaskDrawer() {
+          const d = getTaskDrawerEls();
+          if (!d.root || !d.closeBtn) return;
+          d.closeBtn.addEventListener("click", function () {
+            closeTaskDrawer();
+          });
+          d.backdrop.addEventListener("click", function () {
+            closeTaskDrawer();
+          });
+        }
+
         function announce(msg) {
           els.live.textContent = "";
           requestAnimationFrame(function () {
@@ -1275,6 +2021,7 @@
         }
 
         function openModal() {
+          resetTaskDrawerForNav();
           draftEnabled = Object.assign({}, enabledWidgets);
           draftOrder = widgetOrder.slice();
           renderModalContent();
@@ -1467,15 +2214,14 @@
 
           if (uiState === "loading") {
             inner.innerHTML =
-              '<div><div class="skeleton" style="width:40%;height:12px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:8px"></div><div class="skeleton" style="height:44px;margin-bottom:8px"></div><div class="skeleton" style="height:44px"></div></div>' +
-              '<div><div class="skeleton" style="width:40%;height:12px;margin-bottom:12px"></div><div class="skeleton" style="height:52px;margin-bottom:8px"></div><div class="skeleton" style="height:52px"></div></div>';
+              '<div class="create-primary-row create-primary-row--quad" style="margin-bottom:8px"><div class="skeleton" style="height:64px"></div><div class="skeleton" style="height:64px"></div><div class="skeleton" style="height:64px"></div><div class="skeleton" style="height:64px"></div></div><div class="skeleton" style="width:50%;height:11px;margin-bottom:6px"></div><div class="skeleton" style="height:32px;margin-bottom:4px"></div><div class="skeleton" style="height:32px"></div>';
             host.appendChild(inner);
             return;
           }
 
           if (uiState === "error") {
             inner.innerHTML =
-              '<div class="error-block" style="grid-column:1/-1"><p>新規作成メニューを読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryCreate">再試行</button></div>';
+              '<div class="error-block"><p>新規作成メニューを読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryCreate">再試行</button></div>';
             host.appendChild(inner);
             setTimeout(function () {
               document.getElementById("retryCreate")?.addEventListener("click", function () {
@@ -1488,64 +2234,78 @@
             return;
           }
 
-          const left = document.createElement("div");
-          left.innerHTML =
-            '<p class="create-section__title">クイック新規作成</p><div class="create-actions" id="createQuickHost"></div>';
-          const quickHost = left.querySelector("#createQuickHost");
+          const topRow = document.createElement("div");
+          topRow.className = "create-primary-row create-primary-row--quad";
 
-          const quickDefs = [
-            {
-              icon: "post_add",
-              label: "契約を新規作成",
-              sub: "白紙から契約書を起案します",
-              action: "契約の新規作成画面へ遷移する想定です。",
-            },
-            {
-              icon: "folder_special",
-              label: "案件を新規作成",
-              sub: "案件管理に新しい案件を追加します",
-              action: "案件の新規作成画面へ遷移する想定です。",
-            },
-            {
-              icon: "workspaces",
-              label: "プロジェクトを新規作成",
-              sub: "関連契約を束ねるプロジェクトを作成します",
-              action: "プロジェクトの新規作成画面へ遷移する想定です。",
-            },
-            {
-              icon: "hub",
-              label: "チャネルを新規作成",
-              sub: "外部共有用のチャネルを用意します",
-              action: "チャネルの新規作成画面へ遷移する想定です。",
-            },
-          ];
-
-          quickDefs.forEach(function (q) {
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "create-action-btn";
-            btn.innerHTML =
-              '<span class="material-symbols-rounded">' +
-              q.icon +
-              '</span><span class="create-action-btn__text"><strong>' +
-              q.label +
-              "</strong><span>" +
-              q.sub +
-              "</span></span>";
-            if (uiState === "disabled") {
-              btn.disabled = true;
-            } else {
-              btn.addEventListener("click", function () {
-                announce(q.action);
+          const btnTemplate = document.createElement("button");
+          btnTemplate.type = "button";
+          btnTemplate.className = "create-primary-btn";
+          btnTemplate.innerHTML =
+            '<span class="material-symbols-rounded" aria-hidden="true">description</span><span>テンプレートから<br />作成する</span>';
+          if (uiState === "disabled") {
+            btnTemplate.disabled = true;
+          } else {
+            btnTemplate.addEventListener("click", function () {
+              announce("テンプレート一覧から契約を作成します。下の一覧から選択してください。");
+              document.getElementById("createTemplateAnchor")?.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
               });
-            }
-            quickHost.appendChild(btn);
-          });
+            });
+          }
 
-          const right = document.createElement("div");
-          right.innerHTML =
-            '<p class="create-section__title">テンプレートから作成</p><ul class="template-list" id="templateListHost"></ul>';
-          const listHost = right.querySelector("#templateListHost");
+          const btnUpload = document.createElement("button");
+          btnUpload.type = "button";
+          btnUpload.className = "create-primary-btn";
+          btnUpload.innerHTML =
+            '<span class="material-symbols-rounded" aria-hidden="true">upload_file</span><span>アップロード<br />する</span>';
+          if (uiState === "disabled") {
+            btnUpload.disabled = true;
+          } else {
+            btnUpload.addEventListener("click", function () {
+              announce("契約書ファイルをアップロードして新規作成する画面へ遷移する想定です。");
+            });
+          }
+
+          const btnRequest = document.createElement("button");
+          btnRequest.type = "button";
+          btnRequest.className = "create-primary-btn";
+          btnRequest.innerHTML =
+            '<span class="material-symbols-rounded" aria-hidden="true">forum</span><span>依頼・相談<br />する</span>';
+          if (uiState === "disabled") {
+            btnRequest.disabled = true;
+          } else {
+            btnRequest.addEventListener("click", function () {
+              announce("依頼・相談フォームへ遷移する想定です。");
+            });
+          }
+
+          const btnMatter = document.createElement("button");
+          btnMatter.type = "button";
+          btnMatter.className = "create-primary-btn";
+          btnMatter.innerHTML =
+            '<span class="material-symbols-rounded" aria-hidden="true">account_tree</span><span>案件を<br />作成する</span>';
+          if (uiState === "disabled") {
+            btnMatter.disabled = true;
+          } else {
+            btnMatter.addEventListener("click", function () {
+              announce("案件の新規作成画面へ遷移する想定です。");
+            });
+          }
+
+          topRow.appendChild(btnTemplate);
+          topRow.appendChild(btnUpload);
+          topRow.appendChild(btnRequest);
+          topRow.appendChild(btnMatter);
+          inner.appendChild(topRow);
+
+          const tmplBlock = document.createElement("div");
+          tmplBlock.className = "create-template-panel";
+          tmplBlock.id = "createTemplateAnchor";
+          tmplBlock.innerHTML =
+            '<p class="create-section__title" style="margin-bottom:6px">テンプレートを選択</p><ul class="template-list template-list--compact" id="templateListHost"></ul>';
+          inner.appendChild(tmplBlock);
+          const listHost = tmplBlock.querySelector("#templateListHost");
 
           if (uiState === "empty") {
             listHost.innerHTML =
@@ -1576,8 +2336,6 @@
             });
           }
 
-          inner.appendChild(left);
-          inner.appendChild(right);
           host.appendChild(inner);
         }
 
@@ -1791,6 +2549,106 @@
           host.appendChild(body);
         }
 
+        function renderTasksWidget(host) {
+          const wrap = document.createElement("div");
+          wrap.className = "widget__body tasks-assigned";
+
+          if (uiState === "loading") {
+            wrap.innerHTML =
+              '<div class="tasks-assigned__list"><div class="skeleton" style="height:46px;border-radius:10px"></div><div class="skeleton" style="height:46px;border-radius:10px"></div><div class="skeleton" style="height:46px;border-radius:10px"></div></div>';
+            host.appendChild(wrap);
+            return;
+          }
+
+          if (uiState === "error") {
+            const box = document.createElement("div");
+            box.className = "error-block";
+            box.innerHTML =
+              '<p>タスクを読み込めませんでした。</p><button type="button" class="btn-ghost" id="retryTasks">再試行</button>';
+            wrap.appendChild(box);
+            host.appendChild(wrap);
+            setTimeout(function () {
+              document.getElementById("retryTasks")?.addEventListener("click", function () {
+                uiState = "default";
+                syncRadios();
+                fullRender();
+                announce("再読み込みしました。");
+              });
+            }, 0);
+            return;
+          }
+
+          if (uiState === "empty") {
+            const box = document.createElement("div");
+            box.className = "empty-block";
+            box.innerHTML =
+              "<p>表示するタスクはありません。</p><button type=\"button\" class=\"btn-ghost\" id=\"allTasks\">タスクの全件表示へ</button>";
+            wrap.appendChild(box);
+            host.appendChild(wrap);
+            setTimeout(function () {
+              document.getElementById("allTasks")?.addEventListener("click", function () {
+                announce("タスク一覧画面へ遷移する想定です。");
+              });
+            }, 0);
+            return;
+          }
+
+          const list = document.createElement("div");
+          list.className = "tasks-assigned__list";
+
+          ASSIGNED_TASK_ROWS.forEach(function (t) {
+            const row = document.createElement("button");
+            row.type = "button";
+            row.className = "tasks-assigned-row";
+            if (uiState === "disabled") {
+              row.disabled = true;
+            }
+            const pillClass =
+              t.pillVariant === "consult"
+                ? "tasks-pill--consult"
+                : t.pillVariant === "approval"
+                  ? "tasks-pill--approval"
+                  : "tasks-pill--review";
+            row.innerHTML =
+              '<span class="tasks-pill ' +
+              pillClass +
+              '">' +
+              t.pill +
+              '</span><span class="tasks-assigned-row__title">' +
+              t.title +
+              '</span><span class="tasks-assigned-row__due">期限: ' +
+              t.due +
+              '</span><span class="tasks-assigned-row__status">' +
+              t.status +
+              "</span>";
+            if (uiState !== "disabled") {
+              row.addEventListener("click", function () {
+                openTaskDrawer(t, row);
+              });
+            }
+            list.appendChild(row);
+          });
+
+          wrap.appendChild(list);
+
+          const foot = document.createElement("div");
+          foot.className = "tasks-widget__foot";
+          foot.innerHTML =
+            "<span>全 " +
+            ASSIGNED_TASK_ROWS.length +
+            " 件中 1〜" +
+            ASSIGNED_TASK_ROWS.length +
+            ' 件を表示</span><button type="button" class="btn-ghost" id="tasksMore">もっと見る</button>';
+          wrap.appendChild(foot);
+          host.appendChild(wrap);
+
+          setTimeout(function () {
+            document.getElementById("tasksMore")?.addEventListener("click", function () {
+              announce("タスクの全件一覧へ遷移する想定です。");
+            });
+          }, 0);
+        }
+
         function renderShortcutsWidget(host) {
           const div = document.createElement("div");
           div.className = "shortcuts-body widget__body";
@@ -1821,6 +2679,7 @@
         }
 
         function renderDashboard() {
+          resetTaskDrawerForNav();
           els.dashboard.innerHTML = "";
           const ids = visibleWidgetIds();
 
@@ -1843,18 +2702,39 @@
             section.className = "widget " + def.className;
             section.id = "w-" + wid;
             const head = document.createElement("div");
-            head.className = "widget__head";
-            head.innerHTML =
-              "<div><h2>" +
-              def.title +
-              '</h2><span>ウィジェット</span></div>';
+            if (wid === "tasks") {
+              head.className = "widget__head widget__head--tasks";
+              head.innerHTML =
+                '<div class="widget__head-start"><span class="tasks-head-icon" aria-hidden="true"><span class="material-symbols-rounded">assignment_turned_in</span></span><div><h2>' +
+                def.title +
+                '</h2></div></div><button type="button" class="tasks-head-open" aria-label="タスク一覧を開く"><span class="material-symbols-rounded" aria-hidden="true">open_in_new</span></button>';
+            } else {
+              head.className = "widget__head";
+              head.innerHTML =
+                "<div><h2>" +
+                def.title +
+                "</h2><span>ウィジェット</span></div>";
+            }
             section.appendChild(head);
+            if (wid === "tasks") {
+              const openBtn = head.querySelector(".tasks-head-open");
+              if (openBtn) {
+                if (uiState === "disabled") {
+                  openBtn.disabled = true;
+                } else {
+                  openBtn.addEventListener("click", function () {
+                    announce("タスク一覧画面へ遷移する想定です。");
+                  });
+                }
+              }
+            }
             const bodyHost = document.createElement("div");
             bodyHost.className = "widget__body-outer";
             if (wid === "kpi") renderKpiWidget(bodyHost);
             else if (wid === "create") renderCreateWidget(bodyHost);
             else if (wid === "drafts") renderDraftsWidget(bodyHost);
             else if (wid === "queue") renderQueueWidget(bodyHost);
+            else if (wid === "tasks") renderTasksWidget(bodyHost);
             else if (wid === "shortcuts") renderShortcutsWidget(bodyHost);
             else if (wid === "news") renderNewsWidget(bodyHost);
             section.appendChild(bodyHost);
@@ -1927,9 +2807,17 @@
         });
 
         document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && !els.modal.hidden) closeModal();
+          if (e.key !== "Escape") return;
+          const tdRoot = document.getElementById("taskDrawerRoot");
+          if (tdRoot && !tdRoot.hidden && tdRoot.classList.contains("is-open")) {
+            e.preventDefault();
+            closeTaskDrawer();
+            return;
+          }
+          if (!els.modal.hidden) closeModal();
         });
 
+        initTaskDrawer();
         fullRender();
       })();
     </script>
