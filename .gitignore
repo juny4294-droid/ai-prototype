@@ -1,3 +1,5 @@
-# プロトタイプ出力フォルダ — 中身は管理対象外、フォルダ自体は維持
+# プロトタイプ出力フォルダ — 共有する HTML のみ追跡（それ以外は除外）
 samples/*
 !samples/.gitkeep
+!samples/*/
+!samples/*/*.html
